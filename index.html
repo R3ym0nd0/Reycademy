@@ -3,7 +3,7 @@
     <head>
         <title>Reycademy</title>
 
-        <link rel="icon" href="assets/images/reycademy.png" type="image/png">
+        <link rel="icon" href="assets/images/reycademyIcon.png" type="image/png">
         <link rel="stylesheet" href="assets/css/style.css">
 
         <meta charset="UTF-8">
@@ -40,10 +40,38 @@
             <div style="color: rgb(84, 207, 255); border: 1px solid rgb(84, 207, 255); padding: 10px; width: 150px;border-radius: 20px; margin: auto;">Pre-Release</div>
 
             <p>Built by a learner. For learners. 100% free. Just learn.</p>
-            <label id="search-container" for="search-bar">
-                <input type="search" placeholder="Search Videos..." maxlength="20" id="search-bar">
-                <i class="fas fa-search"></i>
-            </label>
+            
+            <div id="search-container">
+
+                <input type="search" placeholder="Search Videos..." maxlength="40" id="search-bar">
+                <div id="suggestions">
+                    <ul>
+                        <li data-category="linux-vids" data-ep="all">Linux</li>
+                        <li data-category="networking-vids" data-ep="all">Networking</li>
+                        <li data-category="programming-vids" data-ep="all">Programming</li>
+                        <li data-category="web-tech-vids" data-ep="all">Web Development</li>
+
+                        <li data-category="linux-vids" data-ep="linux-one" class="episodes">Linux 1</li>
+                        <li data-category="linux-vids" data-ep="linux-two" class="episodes">Linux 2</li>
+                        <li data-category="linux-vids" data-ep="linux-three" class="episodes">Linux 3</li>
+
+                        <li data-category="networking-vids" data-ep="networking-one" class="episodes">Networking 1</li>
+                        <li data-category="networking-vids" data-ep="networking-two" class="episodes">Networking 2</li>
+                        <li data-category="networking-vids" data-ep="networking-three" class="episodes">Networking 3</li>
+
+                        <li data-category="programming-vids" data-ep="programming-one" class="episodes">Python 1</li>
+                        <li data-category="programming-vids" data-ep="programming-two" class="episodes">Python 2</li>
+                        <li data-category="programming-vids" data-ep="programming-three" class="episodes">Python 3</li>
+
+                        <li data-category="web-tech-vids" data-ep="web-tech-one" class="episodes">HTML 1</li>
+                        <li data-category="web-tech-vids" data-ep="web-tech-two" class="episodes">HTML 2</li>
+                        <li data-category="web-tech-vids" data-ep="web-tech-three" class="episodes">HTML 3</li>
+                        
+                        <li id="no-result" style="display: none;">No match found</li>
+                    </ul>
+                </div>
+                
+            </div>
         </section>
 
         <section id="videos">
@@ -52,31 +80,31 @@
             <p>Access to all of my videos with hands-on training for free!</p>
 
             <div id="video-container">
-                <div class="video-bar">
+                <div class="video-bar" data-category="all">
                     <h3>All</h3>
                 </div>
 
-                <div class="video-bar">
+                <div class="video-bar" data-category="linux-vids">
                     <h3>Linux</h3>
                 </div>
 
-                <div class="video-bar">
+                <div class="video-bar" data-category="networking-vids">
                     <h3>Networking</h3>
                 </div>
 
-                <div class="video-bar">
+                <div class="video-bar" data-category="programming-vids">
                     <h3>Programming</h3>
                 </div>
 
-                <div class="video-bar">
-                    <h3>Web Tech</h3>
+                <div class="video-bar" data-category="web-tech-vids">
+                    <h3>Web Dev</h3>
                 </div>
             </div>
 
             <div id="video-list">
 
-                <div class="video-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PbSKl2qFNEo?si=lNKWob-5Vn_FwfGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="video-card" data-category="intro">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     <h3>Intro to Ethical Hacking</h3>
                     <p>Coming Soon</p>
                     <div class="button-container">
@@ -91,8 +119,8 @@
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PbSKl2qFNEo?si=lNKWob-5Vn_FwfGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="video-card" data-category="linux-vids" data-ep="linux-one">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     <h3>Linux Basics Episode 1</h3>
                     <p>Coming Soon</p>
 
@@ -108,8 +136,8 @@
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PbSKl2qFNEo?si=lNKWob-5Vn_FwfGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="video-card" data-category="linux-vids" data-ep="linux-two">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     <h3>Linux Basics Episode 2</h3>
                     <p>Coming Soon</p>
 
@@ -125,8 +153,8 @@
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PbSKl2qFNEo?si=lNKWob-5Vn_FwfGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <div class="video-card" data-category="linux-vids" data-ep="linux-three">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     <h3>Linux Basics Episode 3</h3>
                     <p>Coming Soon</p>
 
@@ -142,9 +170,26 @@
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PbSKl2qFNEo?si=lNKWob-5Vn_FwfGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <h3>Linux Basics Episode 4</h3>
+                <div class="video-card" data-category="networking-vids" data-ep="networking-one">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>Networking Basics Episode 1</h3>
+                    <p>Coming Soon</p>
+
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="networking-vids" data-ep="networking-two">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>Networking Basics Episode 2</h3>
                     <p>Coming Soon</p>
                     
                     <div class="button-container">
@@ -159,9 +204,111 @@
                     </div>
                 </div>
 
-                <div class="video-card">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PbSKl2qFNEo?si=lNKWob-5Vn_FwfGW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <h3>Linux Basics Episode 5</h3>
+                <div class="video-card" data-category="networking-vids" data-ep="networking-three">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>Networking Basics Episode 3</h3>
+                    <p>Coming Soon</p>
+                    
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="programming-vids" data-ep="programming-one">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>Python Basics Episode 1</h3>
+                    <p>Coming Soon</p>
+
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="programming-vids" data-ep="programming-two">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>Python Basics Episode 2</h3>
+                    <p>Coming Soon</p>
+
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="programming-vids" data-ep="programming-three">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>Python Basics Episode 3</h3>
+                    <p>Coming Soon</p>
+
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="web-tech-vids" data-ep="web-tech-one">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>HTML Basics Episode 1</h3>
+                    <p>Coming Soon</p>
+
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="web-tech-vids" data-ep="web-tech-two">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>HTML Basics Episode 2</h3>
+                    <p>Coming Soon</p>
+
+                    <div class="button-container">
+                        <a href="#" class="video-button">Quiz</a>
+                        <a href="#" class="video-button">Hands on</a>
+                    </div>
+                    <div class="cheatsheet"><a onclick="alert('Coming Soon')">Cheatsheet</a></div>
+
+                    <div class="video-meta">
+                        <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic"> 
+                        <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+                    </div>
+                </div>
+
+                <div class="video-card" data-category="web-tech-vids" data-ep="web-tech-three">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MzEFeIRJ0eQ?si=BdxZbWCqNmGQWMp7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <h3>HTML Basics Episode 3</h3>
                     <p>Coming Soon</p>
 
                     <div class="button-container">
@@ -179,7 +326,6 @@
             </div>
 
         </section>
-    
     </main>
 
     <footer>
@@ -199,12 +345,13 @@
         </div>
 
         <p>&copy; 2025 Reycademy. All rights reserved.</p>
-        <p>v0.0.1 | Built with HTML, CSS & JavaScript</p>
+        <p>v0.1.0 | Built with HTML, CSS & JavaScript</p>
 
         <a href="terms.html" class="legal-container">Terms of Use</a> |
         <a href="privacy.html" class="legal-container">Privacy Policy</a>
     </footer>
 
-    <script src="assets/js/hamburger_bar.js"></script>
+    <script src="assets/js/hamburgerBar.js"></script>
+    <script src="assets/js/searchBar.js"></script>
 </body>
 </html> 

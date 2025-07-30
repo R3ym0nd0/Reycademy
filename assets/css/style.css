@@ -5,7 +5,7 @@
 }
 
 html {
-    scroll-padding-top: 80px;
+    scroll-padding-top: 74.375px;
 
     font-size: 16px;
 
@@ -18,10 +18,10 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    padding-top: 5rem;
+    margin-top: 5rem;
 
     font-family: Arial, sans-serif;
-    color: #f5f5f5;
+    color: white;
 
     background-color: rgb(13, 27, 53);
     user-select: none;
@@ -137,15 +137,15 @@ nav a:hover {
 }
 
 #search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    position: relative;
 }
 
 #search-bar {
     padding: 5px;
-    width: clamp(1rem, 50%, 15rem);
+    width: 100%;
     
     text-align: center;
 
@@ -155,11 +155,47 @@ nav a:hover {
 }
 
 #search-bar:focus {
-     outline: 2px solid rgb(84, 207, 255);
+    border-bottom: 2px solid skyblue;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 15px;
 }
 
-#search-container i:hover {
-    color: rgb(84, 207, 255);
+#suggestions {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    color: black;
+
+    background-color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+#suggestions.show {
+    display: block;
+}
+
+.episodes {
+    display: none;
+}
+
+#suggestions ul {
+    font-size: 0.875rem;
+    text-align: left;
+
+    list-style: none;
+}
+
+#suggestions li {
+    padding: 10px 15px;
+}
+
+#suggestions li:hover {
+    background-color: rgb(197, 193, 193); 
 }
 
 #videos {
@@ -199,13 +235,17 @@ nav a:hover {
     border-radius: 20px;
 }
 
-.video-bar h3 {
-    font-size: 0.875rem;
-}   
-
 .video-bar:hover {
     background-color: rgb(65, 184, 231);
 }
+
+.video-bar.active {
+    background-color: white;
+}
+
+.video-bar h3 {
+    font-size: 0.875rem;
+}   
 
 #video-list {
    display: flex;

@@ -1,3 +1,4 @@
+// ===== Mobile Nav Bar Show | Hide =====
 const hamburgerBar = document.querySelector("#hamburger-icon");
 const navBar = document.querySelector("nav ul");
 
@@ -9,4 +10,5 @@ hamburgerBar.addEventListener("click", () => {
         hamburgerBar.style.color = "rgb(84, 207, 255)"
         navBar.classList.add("show")
     }
-})  
+});
+
