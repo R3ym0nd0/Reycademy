@@ -1,6 +1,6 @@
-# Reycademy v0.0.1
+# Reycademy v0.1.0
 
-Welcome to version 0.0.1 of my Reycademy!  
+Welcome to version 0.1.0 of my Reycademy!  
 Reycademy is a free ethical hacking learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand ethical hacking step by step.
 
 ### 🔗 Live Site: [reycademy.netlify.app](https://reycademy.netlify.app/)
@@ -23,12 +23,9 @@ Reycademy is a free ethical hacking learning site made for Filipinos. It offers 
 ---
 
 ## 📌 What's New
-
-- ✅ landing page and hero section
-- ✅ Responsive design for desktop, tablet, and mobile
-- ✅ Navigation bar (non-functional for now)
-- ✅ Basic footer
-- ✅ Simple, readable UI design
+- ✅ Search bar is now working
+- ✅ Category nav working
+- ✅ Active button highlight added
   
 ---
 
@@ -43,7 +40,7 @@ Reycademy is a free ethical hacking learning site made for Filipinos. It offers 
 ## 🚧 Limitations
 
 - No actual video or quiz content yet
-- Navigation links are placeholders
+- Some of navigation sections are placeholders
 - No backend or database for now
 
 ---
@@ -57,13 +54,3 @@ I'm building this because I saw that there are not many Tagalog ethical hacking 
 Thanks for checking it out!
 
 ---
-
-## 📄 License
-
-This project is licensed under the **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)** license.
-
-- **You may not** use, copy, modify, or distribute this code for commercial or personal projects without explicit permission.
-- This project is intended for **portfolio and educational purposes only**.
-- For questions or permission requests, please message me directly.
-
-🔗 [Read the full license here](https://creativecommons.org/licenses/by-nc-nd/4.0/)
