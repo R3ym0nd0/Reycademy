@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     margin-top: 5rem;
 
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     color: white;
 
     background-color: rgb(13, 27, 53);
@@ -138,27 +138,35 @@ nav a:hover {
 
 #search-container {
     width: 100%;
-    max-width: 200px;
+    max-width: 300px;
     margin: 0 auto;
     position: relative;
 }
 
 #search-bar {
-    padding: 5px;
+    padding: 10px;
     width: 100%;
     
+    caret-color:white;
+    color: white;
     text-align: center;
 
-    border: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    background: none;
     outline: none;
-    border-radius: 15px;
+}
+
+#search-bar::placeholder {
+    color: #aaa;
 }
 
 #search-bar:focus {
-    border-bottom: 2px solid skyblue;
+    border: 1px solid white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-right: 15px;
 }
 
 #suggestions {

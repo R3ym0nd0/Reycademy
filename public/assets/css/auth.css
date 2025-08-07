@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: 74.375px;
+
+    font-size: 16px;
+
+    scroll-behavior: smooth; 
+    -ms-overflow-style: none;  /*For Old IE / Edge to  hide scroll bar*/
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: white;
+    background-color: rgb(7, 14, 26);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-bottom: 1px solid rgb(84, 207, 255);
+
+    text-align: center;
+
+    background-color: rgb(13, 27, 53);
+}
+
+h2 {
+    padding-bottom: 5px;
+
+    color: rgb(84, 207, 255);
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#brand a {
+    display: inline-block;
+    padding: 10px;
+
+    color: rgb(84, 207, 255);
+
+    border: 1px solid  rgb(84, 207, 255);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#brand a:hover {
+    color: black;
+    background-color: rgb(65, 184, 231);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 500px;
+    width: 100%;
+    padding: 30px;
+    
+    border-radius: 10px;
+}
+
+#reycademy-logo {
+    width: 8rem;
+} 
+
+#login h1 {
+    margin-bottom: 2rem;
+
+    color: rgb(84, 207, 255);
+    font-size: 1.4rem;
+}
+
+label {
+    color: rgb(84, 207, 255);
+}
+
+input:-webkit-autofill {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 100000s ease-in-out 0s;
+}
+
+input:-moz-autofill {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+}
+
+input {
+    padding: 10px;
+    width: 90%;
+
+    color: white;
+    caret-color: white;
+
+    border: 1px solid rgb(84, 207, 255);
+    border-radius: 5px;
+    background: none;
+    border-bottom: 1px solid rgb(84, 207, 255);
+    outline: none;
+    cursor: pointer;
+}
+
+input::placeholder {
+    color: rgb(168, 165, 165);
+}
+
+input:hover {
+    border: 1px solid rgb(61, 169, 211);
+
+    border-radius: 5px;
+}
+
+input:focus {
+    border: 1px solid white;
+
+    border-radius: 5px;
+}
+
+#login-buttons {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+    
+.in-btn {  
+    display: inline-block;
+    padding: 10px;
+    width: 100px;
+
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+
+    background-color: rgb(84, 207, 255);
+    border-radius: 8px;
+    text-decoration: none ;
+    border: none;
+}
+
+.in-btn:hover {
+    background-color: rgb(65, 184, 231);
+}
+
+#agree {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+
+    color: white;
+    font-size: 0.875rem;
+}
+
+#agree input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+
+    cursor: pointer;
+}
+
+#agree a {
+    color: white;
+}
+
+#login-redirect {
+    margin: 0.875rem;
+
+    color: rgb(168, 165, 165);
+}
+
+#login-redirect a {
+    color: rgb(168, 165, 165);
+}
+
+#login-redirect a:hover {
+    color: white;
+}
+
+footer {
+    padding: 1.5rem;
+
+    font-size: 0.9em;
+    text-align: center;
+
+    background-color: rgb(13, 27, 53);
+    border-top: 1px solid rgb(84, 207, 255);
+}
+
+#platforms {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+#platforms a{
+    text-decoration: none;
+}
+
+footer p {
+    margin: 1rem;
+}
+
+footer p a { 
+    color: white;
+
+    text-decoration: none;
+}
+
+footer p a:hover {
+    color: skyblue;
+
+    text-decoration: underline;
+}
+
+.legal-container {
+    color: white;
+    text-decoration: none;
+}
+
+.legal-container:hover {
+    color: skyblue;
+
+    text-decoration: underline;
+}
+
+@media (max-width: 301px) {
+  body::before {
+    content: "You can't view Reycademy at 301px or less. Enjoy the void :)";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 100vh;
+
+    font-size: 24px;
+    text-align: center;
+    color: white;
+
+    background: black;
+  }
+
+  body > * {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+    #login h1 {
+        font-size: 2rem;
+    }
+}

@@ -5,10 +5,10 @@ const navBar = document.querySelector("nav ul");
 hamburgerBar.addEventListener("click", () => {
     if (navBar.classList.contains("show")) {
         hamburgerBar.style.color = "white";
-        navBar.classList.remove("show")
+        navBar.classList.remove("show");
     } else {
         hamburgerBar.style.color = "rgb(84, 207, 255)"
-        navBar.classList.add("show")
+        navBar.classList.add("show");
     }
 });
 
