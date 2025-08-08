@@ -147,22 +147,16 @@ nav a:hover {
     padding: 10px;
     width: 100%;
     
-    caret-color:white;
-    color: white;
     text-align: center;
 
     border: 1px solid white;
-    border-radius: 5px;
-    background: none;
+    border-radius: 25px;
+    background-color: white;
     outline: none;
 }
 
-#search-bar::placeholder {
-    color: #aaa;
-}
-
 #search-bar:focus {
-    border: 1px solid white;
+    border: 2px solid rgb(84, 207, 255);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-left-radius: 0;
