@@ -1,6 +1,6 @@
-# Reycademy v0.2.0
+# Reycademy v0.2.1
 
-Welcome to version 0.2.0 of my Reycademy!  
+Welcome to version 0.2.1 of my Reycademy!  
 Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity easily.
 
 ### 🔗 Live Site: [reycademy.netlify.app](https://reycademy.netlify.app/)
@@ -10,15 +10,15 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 
 ### DESKTOP
 
-<img width="1264" height="558" alt="ReycademyDesktop" src="https://github.com/user-attachments/assets/951e7b17-3693-4633-ae74-fd3ac3165291" />
+<img width="1262" height="535" alt="ReycademyDesktop" src="https://github.com/user-attachments/assets/ba71c74a-f1fb-427b-90c6-9ee4a897e9f4" />
 
 ### TABLET
 
-<img width="762" height="459" alt="ReycademyTablet" src="https://github.com/user-attachments/assets/647ca198-0613-4607-b08e-960e921c282f" />
+<img width="764" height="483" alt="ReycademyTablet" src="https://github.com/user-attachments/assets/463beebd-ec18-4d34-a6ae-6ae4d93aa2e8" />
 
 ### MOBILE
 
-<img width="371" height="514" alt="ReycademyMobile" src="https://github.com/user-attachments/assets/a89303f4-b942-4030-8bd6-a766edf1315c" />
+<img width="369" height="554" alt="ReycademyMobile" src="https://github.com/user-attachments/assets/2812f9b0-fc56-4074-a591-0ba31f0a8c17" />
 
 ---
 
