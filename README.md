@@ -1,7 +1,7 @@
 # Reycademy v0.2.1
 
 Welcome to version 0.2.1 of my Reycademy!  
-Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity easily.
+Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity.
 
 ### 🔗 Live Site: [reycademy.netlify.app](https://reycademy.netlify.app/)
 ---
