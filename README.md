@@ -3,10 +3,10 @@
 Welcome to version 0.2.1 of my Reycademy!  
 Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity.
 
-### 🔗 Live Site: [reycademy.netlify.app](https://reycademy.netlify.app/)
+### Live Site: [reycademy.netlify.app](https://reycademy.netlify.app/)
 ---
 
-## 📸 Screenshot
+## Screenshots
 
 ### DESKTOP
 
@@ -22,15 +22,15 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 
 ---
 
-## 📌 What's New
+## What's New
 
-- ✅ Redesigned search bar UI
-- ✅ Added login & signup forms (frontend only)
-- ✅ Updated main font to 'Segoe UI'
+- Redesigned search bar UI
+- Added login & signup forms (frontend only)
+- Updated main font to 'Segoe UI'
 
 ---
 
-## 🛠️ Built With
+## Built With
 
 - HTML
 - CSS (Vanilla)
@@ -38,7 +38,7 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
   
 ---
 
-## 🚧 Limitations
+## Limitations
 
 - No actual video or quiz content yet
 - Some of navigation sections are placeholders
@@ -46,12 +46,10 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 
 ---
 
-## 🙌 Why I'm Building This
+## Why I'm Building This
 
 I'm building this because I saw that there are not many Tagalog cybersecurity lessons here in the Philippines. Most topics here are about web development or programming only. So I made Reycademy to help my fellow Filipinos who also want to learn cybersecurity in a simple and free way.
 
 ---
 
 Thanks for checking it out!
-
----
