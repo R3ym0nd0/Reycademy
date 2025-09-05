@@ -6,7 +6,7 @@ async function UpdateUI () {
 
     // Check if login, update UI
     try {
-        const res = await fetch("/session", {
+        const res = await fetch("https://reycademy.onrender.com/session", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
             credentials: "include"
@@ -35,7 +35,7 @@ async function UpdateUI () {
 async function logOut () {
 
     try {
-        const res = await fetch("/logout", {
+        const res = await fetch("https://reycademy.onrender.com/logout", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
             credentials: "include"

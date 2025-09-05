@@ -14,7 +14,7 @@ if (signup) {
         }
         
         try {
-            const result = await fetch("/register", {
+            const result = await fetch("https://reycademy.onrender.com/register", {
                 method : "POST",
                 headers : {"Content-Type":"application/json"},
                 body : JSON.stringify(data),
@@ -56,7 +56,7 @@ if (form) {
         };
 
         try {
-            const res = await fetch("/submit", {
+            const res = await fetch("https://reycademy.onrender.com/submit", {
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(data),
