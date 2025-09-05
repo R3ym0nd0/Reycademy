@@ -18,7 +18,6 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    margin-top: 5rem;
 
     font-family: 'Segoe UI', Arial, sans-serif;
     color: white;
@@ -53,27 +52,28 @@ header {
     width: 8rem;
 }
 
-h2 {
-    padding-bottom: 5px;
-
-    color: rgb(84, 207, 255);
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
 #brand {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     width: 100%;
+}
+
+#profile {
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid white;
+    border-radius: 50%;
 }
 
 nav ul {
     display: none;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 1.5rem;
-    padding: 1rem;
 
     list-style: none;
 }
@@ -92,20 +92,46 @@ nav a:hover {
     color: rgb(84, 207, 255);
 }
 
+#name-display {
+    display: none;
+}
+
+#name-display.show {
+    display: inline-block;
+}
+
+#authentication.hide {
+    display: none;
+}
+
 #authentication {
+    display: inline-block;
     margin: 0;
-    padding: 10px;
+    padding: 12px;
 
-    color: black;
+    color: white;
     text-decoration: none;
-
-    background-color: rgb(84, 207, 255);
-    border: 1px solid rgb(84, 207, 255);
-    border-radius: 4px;
 }
 
 #authentication:hover {
-    background-color: rgb(65, 184, 231);
+    background-color: #34495e;
+}
+
+#logout {
+    display: none;
+}
+
+#logout.show {
+    display: inline-block; 
+    margin: 0;
+    padding: 12px;
+
+    color: white;
+    text-decoration: none;
+}
+
+#logout:hover {
+    background-color: #34495e;
 }
 
 #hamburger-icon {
@@ -119,8 +145,8 @@ nav a:hover {
 }
 
 #hero {
-    margin: 2rem 0.875rem 3rem;
-
+    margin: 2rem 0.875rem 1rem;
+    padding-top: 5rem;
     text-align: center;
 }
 
@@ -144,13 +170,14 @@ nav a:hover {
 }
 
 #search-bar {
+    margin-top: 0.875rem;
     padding: 10px;
     width: 100%;
     
     text-align: center;
 
     border: 1px solid white;
-    border-radius: 25px;
+    border-radius: 10px;
     background-color: white;
     outline: none;
 }
@@ -443,7 +470,6 @@ footer p a:hover {
     nav ul {
         display: flex;
         flex-direction: row;
-        padding: 0.700rem;
         gap: 0;
     }
 
@@ -494,7 +520,7 @@ footer p a:hover {
     }   
 
     #hero {
-        margin: 2rem 1.2rem 3rem;
+        margin: 2rem 1.2rem 1rem;
     }
 
     #hero-heading {

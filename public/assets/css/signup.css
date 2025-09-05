@@ -1,0 +1,19 @@
+#signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 500px;
+    width: 100%;
+    padding: 30px;
+    
+    border-radius: 10px;
+}
+
+#signup h1 {
+    margin-bottom: 2rem;
+
+    color: rgb(84, 207, 255);
+    font-size: 1.4rem;
+}

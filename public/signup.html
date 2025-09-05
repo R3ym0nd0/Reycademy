@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reycademy - Signup</title>
         <link rel="stylesheet" href="assets/css/auth.css">
+        <link rel="stylesheet" href="assets/css/signup.css">
         <link rel="icon" href="assets/images/reycademyIcon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </head>
@@ -13,20 +14,20 @@
     <header> 
         <div id="brand">
             <h2>Reycademy</h2>
-            <a href="index.html" target="_self">Home</a>
+            <a href="/" target="_self">Home</a>
         </div>
     </header>
 
     <main>
 
-        <form action="" method="post" id="login">
+        <form id="signup">
             <img src="assets/images/reycademy.png" id="reycademy-logo" alt="Reycademy Logo">
             <h1>SIGN UP</h1>
             <label for="first-name">First Name</label>
-            <input type="text" placeholder="Type First Name" maxlength="10" minlength="3" autocomplete="given-name" required id="first-name" name="first-name">
+            <input type="text" placeholder="Type First Name" maxlength="10" minlength="3" autocomplete="given-name" required id="first-name" name="firstname">
 
             <label for="last-name">Last Name</label>
-            <input type="text" placeholder="Type Last Name" maxlength="10" minlength="3" autocomplete="family-name" required id="last-name" name="last-name">
+            <input type="text" placeholder="Type Last Name" maxlength="10" minlength="3" autocomplete="family-name" required id="last-name" name="lastname">
 
             <label for="username">Username</label>
             <input type="text" placeholder="Type Username" maxlength="10" minlength="3" autocomplete="username" required id="username" name="username">
@@ -35,7 +36,9 @@
             <input type="password" placeholder="Type Password" maxlength="15" minlength="8" autocomplete="new-password" required id="password" name="password">
 
             <label for="confirm-password">Confirm Password</label>
-            <input type="password" placeholder="Confirm Password" maxlength="15" minlength="8" autocomplete="new-password" required id="confirm-password" name="confirm-password">
+            <input type="password" placeholder="Confirm Password" maxlength="15" minlength="8" autocomplete="new-password" required id="confirm-password" name="confirmpassword">
+
+            <p id="error"></p>
 
             <label id="agree">
                 <input type="checkbox" id="terms"/>
@@ -46,7 +49,7 @@
                 <button type="submit" class="in-btn">Create</button>
             </div>
 
-            <p id="login-redirect">Already have an account? <a href="login.html">Login</a></p>
+            <p id="login-redirect">Already have an account? <a href="/login">Login</a></p>
         </form>
         
     </main>
@@ -68,11 +71,11 @@
         </div>
 
         <p>&copy; 2025 Reycademy. All rights reserved.</p>
-        <p>v0.2.1 | Built with HTML, CSS & JavaScript</p>
 
         <a href="terms.html" class="legal-container">Terms of Use</a> |
         <a href="privacy.html" class="legal-container">Privacy Policy</a>
     </footer>
 
+    <script src="assets/js/auth.js"></script>
 </body> 
 </html>

@@ -12,3 +12,16 @@ hamburgerBar.addEventListener("click", () => {
     }
 });
 
+// ===== Side Bar Show | Hide =====
+const leftArrow = document.querySelector("#left-arrow");
+const sideBar = document.querySelector("#sidebar");
+const profile = document.querySelector("#profile")
+
+profile.addEventListener("click", () => {
+    sideBar.classList.add("show");
+
+    leftArrow.addEventListener("click", () => {
+        sideBar.classList.remove("show"); 
+    }); 
+    
+});

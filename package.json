@@ -1,0 +1,31 @@
+{
+  "name": "reycademy",
+  "version": "1.0.0",
+  "description": "Welcome to version 0.2.0 of my Reycademy!  \r Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity easily.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R3ym0nd0/Reycademy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/R3ym0nd0/Reycademy/issues"
+  },
+  "homepage": "https://github.com/R3ym0nd0/Reycademy#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3"
+  }
+}

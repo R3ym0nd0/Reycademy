@@ -5,6 +5,7 @@
 
         <link rel="icon" href="assets/images/reycademyIcon.png" type="image/png">
         <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/sidebar.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +14,35 @@
     
     <header> 
         <div id="brand">
-            <h2>Reycademy</h2>
+            <img src="assets/images/me.PNG" id="profile">
             <button id="hamburger-icon">&#9776;</button>   
         </div>
-
+        
         <nav>
             <ul>
                 <li><a href="#hero">Home</a></li>
                 <li><a href="about.html" target="_blank">About</a></li>
                 <li><a href="#videos">Videos</a></li>
                 <li><a href="#paths">Paths</a></li>
-                <li><a href="login.html" target="_self" id="authentication">Log in</a></li>
             </ul>
         </nav>
     </header>
+    
+    <nav>
+        <div id="sidebar">   
+            <div id="user-info">
+                <h2 id="username-display">Guest</h2>
+                <i class="fas fa-angle-left" id="left-arrow"></i>
+            </div>   
+
+            <div class="menu-item">Dashboard</div>
+            <div class="menu-item">Profile</div>
+            <div class="menu-item">Settings</div>
+
+            <a href="/login" target="_self" id="authentication">Log in</a>
+            <a href="" onclick="logOut()" id="logout">Log Out</a>
+        </div>
+    </nav>      
 
     <main>
         <section id="hero">
@@ -38,8 +54,14 @@
 
             <p>Built by a learner. For learners. 100% free. Just learn.</p>
             
-            <div id="search-container">
+        </section>
 
+        <section id="videos">
+
+            <h2>Cybersecurity Videos</h2>
+            <p>Access to all of my videos with hands-on training for free!</p>
+
+            <div id="search-container">       
                 <input type="search" placeholder="Search Videos..." maxlength="40" id="search-bar">
                 <div id="suggestions">
                     <ul>
@@ -67,14 +89,7 @@
                         <li id="no-result" style="display: none;">No match found</li>
                     </ul>
                 </div>
-                
             </div>
-        </section>
-
-        <section id="videos">
-
-            <h2>Cybersecurity Videos</h2>
-            <p>Access to all of my videos with hands-on training for free!</p>
 
             <div id="video-container">
                 <div class="video-bar" data-category="all">
@@ -342,13 +357,13 @@
         </div>
 
         <p>&copy; 2025 Reycademy. All rights reserved.</p>
-        <p>v0.2.1 | Built with HTML, CSS & JavaScript</p>
-
+        
         <a href="terms.html" class="legal-container">Terms of Use</a> |
         <a href="privacy.html" class="legal-container">Privacy Policy</a>
     </footer>
 
-    <script src="assets/js/hamburgerBar.js"></script>
+    <script src="assets/js/bar.js"></script>
     <script src="assets/js/searchBar.js"></script>
+    <script src="assets/js/authentication.js"></script>
 </body>
 </html> 
