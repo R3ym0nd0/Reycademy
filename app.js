@@ -12,17 +12,17 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 // Middlewares
+app.use(helmet());
 app.use(cors({
-    origin: "https://reymondjoaquin.netlify.app/",
+    origin: "https://reycademy.netlify.app/", // or http://localhost:3000
     credentials: true
 }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(helmet());
 
 // Database setup
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL, // or LOCAL_DATABASE_URL
     ssl: {
         rejectUnauthorized: false
   }
@@ -107,7 +107,7 @@ app.post("/submit", async (req, res) => {
             res.status(401).json({ success: false, message: "Invalid username or password" });
         }
     } catch (err) {
-        console.error(err);
+        console.log(err);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 });
@@ -116,12 +116,13 @@ app.post("/submit", async (req, res) => {
 app.post("/logout", (req, res) => {
   req.session.destroy(err => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ success: false, message: "Logout failed" });
+        console.error(err);
+        return res.status(500).json({ success: false, message: "Logout failed" });
     }
+
     res.clearCookie("connect.sid"); // Clear cookie after session is gone
     return res.json({ success: true, message: "Logged out successfully" });
-  });
+    });
 });
 
 // For session

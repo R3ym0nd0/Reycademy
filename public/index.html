@@ -14,16 +14,22 @@
     
     <header> 
         <div id="brand">
-            <img src="assets/images/me.PNG" id="profile">
+            <div id="lol">
+                <img src="assets/images/me.png" id="profile">
+                <h3>Home</h3>
+            </div>
+
             <button id="hamburger-icon">&#9776;</button>   
         </div>
-        
+
         <nav>
             <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="about.html" target="_blank">About</a></li>
-                <li><a href="#videos">Videos</a></li>
-                <li><a href="#paths">Paths</a></li>
+                <li class="section-bar"><a href="#hero">Home</a></li>
+                <li class="section-bar"><a href="about.html" target="_blank">About</a></li>
+                <li class="section-bar"><a href="#videos">Videos</a></li>
+                <li class="section-bar"><a href="#paths">Paths</a></li>
+                <li class="section-bar"><a href="#paths">Contacts</a></li>
+                <li class="section-bar"><a href="#paths">Certifications</a></li>
             </ul>
         </nav>
     </header>
@@ -40,25 +46,34 @@
             <div class="menu-item">Settings</div>
 
             <a href="/login" target="_self" id="authentication">Log in</a>
-            <a href="" onclick="logOut()" id="logout">Log Out</a>
+            <a href="" id="logout">Log Out</a>
         </div>
     </nav>      
 
     <main>
         <section id="hero">
-            <img src="assets/images/reycademy.png" id="reycademy-logo">
-
-            <h1 id="hero-heading">Cybersecurity for Filipinos</h1>
-        
-            <div style="color: rgb(84, 207, 255); border: 1px solid rgb(84, 207, 255); padding: 10px; width: 150px;border-radius: 20px; margin: auto;">Pre-Release</div>
-
-            <p>Built by a learner. For learners. 100% free. Just learn.</p>
+            <div class="hero-image">
+                <img src="assets\images\reycademy.png" alt="Reymond - Creator of Reycademy">
+            </div>
             
+            <div class="hero-content">
+                <div id="hero-brand">
+                    <h1>Reycademy</h1>
+                    <div style="padding: 10px; color: skyblue; border: 1px solid skyblue; border-radius: 24px; margin-bottom: 1rem; font-size: 0.700rem;">Pre-Release</div>
+                </div>
+                <p>A personal academy where I share my cybersecurity knowledge in Tagalog, organized way for free while also tracking my progress.</p>
+                <p class="author">Created by Reymond Joaquin</p>
+                
+                <div class="cta">
+                    <a href="#videos" class="btn primary">Get Started</a>
+                    <a href="/login" class="btn secondary">Contact Me</a>
+                </div>
+            </div>
         </section>
 
         <section id="videos">
 
-            <h2>Cybersecurity Videos</h2>
+            <h2>Reycademy Videos</h2>
             <p>Access to all of my videos with hands-on training for free!</p>
 
             <div id="search-container">       
@@ -364,6 +379,6 @@
 
     <script src="assets/js/bar.js"></script>
     <script src="assets/js/searchBar.js"></script>
-    <script src="assets/js/authentication.js"></script>
+    <script src="assets/js/updateUI.js"></script>
 </body>
 </html> 

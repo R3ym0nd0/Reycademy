@@ -43,7 +43,6 @@ async function logOut () {
 
         const result = await res.json();
         
-        console.log(result);
         if (result.success) {
             console.log(result.message);
         } else {
@@ -57,3 +56,4 @@ async function logOut () {
 };
 
 UpdateUI();
+document.getElementById("logout").addEventListener("click", logOut);

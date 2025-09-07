@@ -10,8 +10,6 @@
 
     background-color: rgb(13, 27, 53);
     color: white;
-    border-right: 1px solid rgb(84, 207, 255);
-    border-radius: 15px;
 }
 
 #sidebar.show {

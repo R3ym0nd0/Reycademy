@@ -20,11 +20,12 @@ if (signup) {
                 body : JSON.stringify(data),
                 credentials: "include"
             });
-
+            
+            console.log(result);
             const a = await result.json();
 
             if (a.registered) {
-                window.location.href = "/login";
+                window.location.href = "https://reycademy.onrender.com/login";
             } else {
                 const err = document.querySelector("#error");
                 const text = err.textContent = a.message;
@@ -56,7 +57,7 @@ if (form) {
         };
 
         try {
-            const res = await fetch("https://reycademy.onrender.com/submit", {
+            const res = await fetch("/submit", {
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(data),
