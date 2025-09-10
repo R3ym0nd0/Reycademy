@@ -6,7 +6,7 @@
     flex-direction: column;
     padding: 20px;
     height: 100vh;
-    width: 18rem;
+    width: 100%;
 
     background-color: rgb(13, 27, 53);
     color: white;
@@ -19,6 +19,9 @@
 #user-info {
     display: flex;
     justify-content: space-between;
+
+    border-bottom: 1px solid white;
+    margin-bottom: 0.875rem;
 }
 
 #sidebar h2 {
@@ -58,4 +61,10 @@ h1 {
     margin-bottom: 15px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+@media (min-width: 500px) {
+     #sidebar {
+        width: 18rem;
+    }
 }
