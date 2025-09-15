@@ -14,7 +14,7 @@ if (signup) {
         }
         
         try {
-            const result = await fetch("https://reycademy.onrender.com/register", {
+            const result = await fetch("/register", {
                 method : "POST",
                 headers : {"Content-Type":"application/json"},
                 body : JSON.stringify(data),
@@ -25,7 +25,7 @@ if (signup) {
             const a = await result.json();
 
             if (a.registered) {
-                window.location.href = "https://reycademy.onrender.com/login";
+                window.location.href = "/login";
             } else {
                 const err = document.querySelector("#error");
                 const text = err.textContent = a.message;

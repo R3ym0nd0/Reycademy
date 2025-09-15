@@ -14,7 +14,7 @@ const cors = require("cors");
 // Middlewares
 app.use(helmet());
 app.use(cors({
-    origin: "https://reycademy.netlify.app/", // or http://localhost:3000
+    origin: "http://localhost:3000", // or http://localhost:3000
     credentials: true
 }));
 app.use(express.json());
@@ -42,7 +42,7 @@ app.use(session({
 
     cookie: {
         httpOnly: true,         
-        secure: true,          
+        secure: false,          
         sameSite: "none",    
         maxAge: 1000 * 60 * 60
     }

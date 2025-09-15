@@ -52,7 +52,7 @@ header {
 #lol {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.600rem;
 }
 
 #brand {
@@ -64,7 +64,7 @@ header {
 }
 
 #profile {
-    width: 50px;
+    width: 55px;
     height: 50px;
 
     border-radius: 50%;
@@ -296,7 +296,7 @@ nav a:hover {
 
     text-align: center;
 
-    background-color: rgb(8, 15, 27);
+    background: linear-gradient(to right, rgb(15, 25, 80), rgb(8, 15, 27));
 }
 
 #videos h2 {
