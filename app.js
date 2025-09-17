@@ -14,7 +14,7 @@ const cors = require("cors");
 // Middlewares
 app.use(helmet());
 app.use(cors({
-    origin: "http://localhost:3000", // or http://localhost:3000
+    origin: "https://reycademy.netlify.app/",
     credentials: true
 }));
 app.use(express.json());
@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Database setup
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL, // or LOCAL_DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
   }
@@ -33,7 +33,7 @@ app.use(session({
     store: new pgSession({ 
         pool: pool,
         tableName: 'session',   
-        schemaName: 'public'
+        // schemaName: 'public'
      }),
 
     secret: process.env.SESSION_SECRET,
@@ -42,7 +42,7 @@ app.use(session({
 
     cookie: {
         httpOnly: true,         
-        secure: false,          
+        secure: true,          
         sameSite: "none",    
         maxAge: 1000 * 60 * 60
     }
@@ -73,7 +73,7 @@ app.post("/register", async (req, res) => {
         const hash = await hashedPassword(confirmPassword);
 
         if (password === confirmPassword) {     
-            await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
+            await pool.query("INSERT INTO reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
             res.json({ registered : true });
         } else  {
             res.status(401).json({registered : false, message : "Pasword & Confirm Password are not same"});
@@ -91,7 +91,7 @@ app.post("/submit", async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const result = await pool.query("SELECT password FROM public.reycademy_users WHERE username = $1", [username]);
+        const result = await pool.query("SELECT password FROM reycademy_users WHERE username = $1", [username]);
 
         if (result.rowCount === 0) {
             return res.status(401).json({ success: false, message: "Invalid username or password" });
@@ -127,14 +127,14 @@ app.post("/logout", (req, res) => {
 
 // For session
 app.post('/session', (req, res) => {
-  if (req.session.user) {
+    if (req.session.user) {
     res.json({
-      loggedIn: true,
-      username: req.session.user.username
+        loggedIn: true,
+        username: req.session.user.username
     });
-  } else {
+    } else {
     res.json({ loggedIn: false });
-  }
+    }
 });
 
 app.use((req, res) => {

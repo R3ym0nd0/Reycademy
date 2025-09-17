@@ -46,6 +46,7 @@ header {
     right: 0;
     padding: 1rem;
 
+    border-bottom: 1px solid white;
     background-color: rgb(13, 27, 53);
 }
 
@@ -75,7 +76,7 @@ nav ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 1.5rem;  
 
     list-style: none;
 }
@@ -296,6 +297,7 @@ nav a:hover {
 
     text-align: center;
 
+    border-top: 1px solid white;
     background: linear-gradient(to right, rgb(15, 25, 80), rgb(8, 15, 27));
 }
 
@@ -449,7 +451,8 @@ footer {
 
     font-size: 0.9em;
     text-align: center;
-
+    
+    border-top: 1px solid white;
     background-color: rgb(13, 27, 53);
 }
 
