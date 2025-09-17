@@ -14,7 +14,7 @@ const cors = require("cors");
 // Middlewares
 app.use(helmet());
 app.use(cors({
-    origin: "https://reycademy.netlify.app/",
+    origin: "https://reycademy.netlify.app",
     credentials: true
 }));
 app.use(express.json());
