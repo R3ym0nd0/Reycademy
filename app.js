@@ -33,7 +33,7 @@ app.use(session({
     store: new pgSession({ 
         pool: pool,
         tableName: 'session',   
-        // schemaName: 'public'
+        schemaName: 'public'
      }),
 
     secret: process.env.SESSION_SECRET,
@@ -73,7 +73,7 @@ app.post("/register", async (req, res) => {
         const hash = await hashedPassword(confirmPassword);
 
         if (password === confirmPassword) {     
-            await pool.query("INSERT INTO reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
+            await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
             res.json({ registered : true });
         } else  {
             res.status(401).json({registered : false, message : "Pasword & Confirm Password are not same"});
@@ -91,7 +91,7 @@ app.post("/submit", async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const result = await pool.query("SELECT password FROM reycademy_users WHERE username = $1", [username]);
+        const result = await pool.query("SELECT password FROM public.reycademy_users WHERE username = $1", [username]);
 
         if (result.rowCount === 0) {
             return res.status(401).json({ success: false, message: "Invalid username or password" });
