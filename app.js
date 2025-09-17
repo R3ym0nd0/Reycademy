@@ -102,7 +102,14 @@ app.post("/submit", async (req, res) => {
 
         if (match) {
             req.session.user = { username };
-            res.json({ success: true });
+            req.session.save(err => {
+                if (err) {
+                    console.error("Session save error:", err);
+                    return res.status(500).json({ success: false, message: "Could not save session" });
+                }
+                res.json({ success: true }); 
+            });
+            // res.json({ success: true });
         } else {
             res.status(401).json({ success: false, message: "Invalid username or password" });
         }
@@ -138,12 +145,13 @@ app.post('/session', (req, res) => {
 });
 
 app.use((req, res) => {
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    res.status(404).send("<h1>Page Not Found(404)</h1>");
 });
 
 app.use((req, res) => {
-    res.status(404).send("<h1>Page Not Found(404)</h1>");
+    res.status(500).json({ success: false, message: "Internal Server Error" });
 });
+
 
 const PORTs = process.env.PORT || 3000;
 
