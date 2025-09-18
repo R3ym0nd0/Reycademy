@@ -8,7 +8,8 @@ async function UpdateUI () {
     try {
         const res = await fetch("https://reycademy.onrender.com/session", {
             method: "POST",
-            headers: {"Content-Type":"application/json"}
+            headers: {"Content-Type":"application/json",
+                      "Authorization": `Bearer ${localStorage.getItem("token")}`}
         })
 
         const result = await res.json();
@@ -31,30 +32,9 @@ async function UpdateUI () {
 }
 
 // Function for logout
-async function logOut () {
-
-    try {
-        const res = await fetch("https://reycademy.onrender.com/logout", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"}
-        });
-
-        const result = await res.json();
-        
-        if (result.success) {
-            console.log(result.message);
-        } else {
-            console.log(result.message)
-        };  
-
-    } catch (err) {
-        console.log("Something went wrong :(");
-        console.log(err);
-    }
-};
-
-document.getElementById("logout").addEventListener("click", () => {
-    localStorage.removeItem("token"); // remove JWT
+async function logOut() {
+    // Simply remove the token
+    localStorage.removeItem("token");
     UpdateUI();
-});
-UpdateUI();
+};
+document.getElementById("logout").addEventListener("click", logOut);
