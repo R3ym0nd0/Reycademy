@@ -8,8 +8,7 @@ async function UpdateUI () {
     try {
         const res = await fetch("https://reycademy.onrender.com/session", {
             method: "POST",
-            headers: {"Content-Type":"application/json"},
-            credentials: "include"
+            headers: {"Content-Type":"application/json"}
         })
 
         const result = await res.json();
@@ -37,8 +36,7 @@ async function logOut () {
     try {
         const res = await fetch("https://reycademy.onrender.com/logout", {
             method: "POST",
-            headers: {"Content-Type":"application/json"},
-            credentials: "include"
+            headers: {"Content-Type":"application/json"}
         });
 
         const result = await res.json();
@@ -55,5 +53,8 @@ async function logOut () {
     }
 };
 
+document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("token"); // remove JWT
+    UpdateUI();
+});
 UpdateUI();
-document.getElementById("logout").addEventListener("click", logOut);

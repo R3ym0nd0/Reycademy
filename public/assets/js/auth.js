@@ -17,8 +17,7 @@ if (signup) {
             const result = await fetch("https://reycademy.onrender.com/register", {
                 method : "POST",
                 headers : {"Content-Type":"application/json"},
-                body : JSON.stringify(data),
-                credentials: "include"
+                body : JSON.stringify(data)
             });
             
             console.log(result);
@@ -60,8 +59,7 @@ if (form) {
             const res = await fetch("https://reycademy.onrender.com/submit", {
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
-                body: JSON.stringify(data),
-                credentials: "include"
+                body: JSON.stringify(data)
             });
 
             const result = await res.json();
@@ -75,6 +73,7 @@ if (form) {
             message.style.color = "rgb(168, 165, 165)";
 
             if (result.success) {
+                localStorage.setItem("token", result.token);
                 window.location.href = "/";
             } else {
                 form.username.value = "";
