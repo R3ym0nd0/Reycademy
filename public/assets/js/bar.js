@@ -16,7 +16,7 @@ hamburgerBar.addEventListener("click", () => {
 });
 
 // ===== Side Bar Show | Hide =====
-const leftArrow = document.querySelector("#left-arrow");
+const hideSideBar = document.querySelector("#hide-sideBar");
 const sideBar = document.querySelector("#sidebar");
 const profile = document.querySelector("#profile")
 
@@ -26,7 +26,7 @@ profile.addEventListener("click", () => {
     header.style.backgroundColor = "rgb(13, 27, 53)";
     hamburgerBar.style.color = "white";
 
-    leftArrow.addEventListener("click", () => {
+    hideSideBar.addEventListener("click", () => {
         sideBar.classList.remove("show"); 
     }); 
     
