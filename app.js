@@ -1,18 +1,22 @@
 const express = require("express");
+const session = require("express-session");
+const pgSession = require('connect-pg-simple')(session);
 const path = require("path");
 const { Pool } = require("pg");
+const app = express();
+
+// For security
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+require('dotenv').config();
 const helmet = require("helmet");
 const cors = require("cors");
 
-const app = express();
+app.set("trust proxy", 1);
 
-// Middleware
+// Middlewares
 app.use(helmet());
 app.use(cors({
-    origin: "https://reycademy.netlify.app", // frontend domain
+    origin: "https://reycademy.netlify.app",
     credentials: true
 }));
 app.use(express.json());
@@ -21,82 +25,129 @@ app.use(express.static(path.join(__dirname, "public")));
 // Database setup
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    ssl: {
+        rejectUnauthorized: false
+  }
 });
 
-// JWT secret & expiration
-const JWT_SECRET = process.env.SESSION_SECRET;
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
+// Session setup
+app.use(session({
+    store: new pgSession({ 
+        pool: pool,
+        tableName: 'session',   
+        schemaName: 'public'
+     }),
 
-// Serve HTML pages
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+
+    cookie: {
+        httpOnly: true,         
+        secure: true,        
+        sameSite: "none",    
+        maxAge: 1000 * 60 * 60
+    }
+}));
+
 function servePage(fileName) {
-    return (req, res) => res.sendFile(path.join(__dirname, "public", fileName));
-}
+    return (req, res) => { res.sendFile(path.join(__dirname, "public", fileName)); };
+};
 
+async function hashedPassword (plainPassword) {
+    return await bcrypt.hash(plainPassword, 10);
+};
+
+async function comparePassword(plainPassword, hashedPassword) {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+};
+
+// Routes
 app.get("/login", servePage("login.html"));
 app.get("/signup", servePage("signup.html"));
 
-// Hashing helpers
-async function hashedPassword(plain) {
-    return await bcrypt.hash(plain, 10);
-}
-async function comparePassword(plain, hash) {
-    return await bcrypt.compare(plain, hash);
-}
-
-// Signup
+// For signup
 app.post("/register", async (req, res) => {
     const { firstName, lastName, username, password, confirmPassword } = req.body;
-    try {
-        if (password !== confirmPassword) return res.status(401).json({ registered: false, message: "Password & Confirm Password are not same" });
 
+    try {
+        // The password hash
         const hash = await hashedPassword(confirmPassword);
-        await pool.query(
-            "INSERT INTO reycademy_users(firstname, lastname, username, password) VALUES($1,$2,$3,$4)",
-            [firstName, lastName, username, hash]
-        );
-        res.json({ registered: true });
+
+        if (password === confirmPassword) {     
+            await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
+            res.json({ registered : true });
+        } else  {
+            res.status(401).json({registered : false, message : "Pasword & Confirm Password are not same"});
+        }
+        
     } catch (err) {
+        res.status(500).json({ registered:   false, message: "Internal Server Error" });
         console.log(err);
-        res.status(500).json({ registered: false, message: "Internal Server Error" });
-    }
+    };
+
 });
 
-// Login → return JWT
+// For login
 app.post("/submit", async (req, res) => {
     const { username, password } = req.body;
+
     try {
-        const result = await pool.query("SELECT password FROM reycademy_users WHERE username = $1", [username]);
-        if (result.rowCount === 0) return res.status(401).json({ success: false, message: "Invalid username or password" });
+        const result = await pool.query("SELECT password FROM public.reycademy_users WHERE username = $1", [username]);
 
-        const match = await comparePassword(password, result.rows[0].password);
-        if (!match) return res.status(401).json({ success: false, message: "Invalid username or password" });
+        if (result.rowCount === 0) {
+            return res.status(401).json({ success: false, message: "Invalid username or password" });
+        }   
+        
+        const storedHash = result.rows[0].password;
+        const match = await comparePassword(password, storedHash);
 
-        const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-        res.json({ success: true, token });
+        if (match) {
+            req.session.user = { username : username };
+            res.json({success: true});
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 });
 
-// Middleware to verify token
-function verifyToken(req, res, next) {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "No token provided" });
+// For logout
+app.post("/logout", (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+        console.error(err);
+        return res.status(500).json({ success: false, message: "Logout failed" });
+    }
 
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (err) return res.status(403).json({ message: "Invalid token" });
-        req.user = decoded;
-        next();
+    res.clearCookie("connect.sid"); // Clear cookie after session is gone
+    return res.json({ success: true, message: "Logged out successfully" });
     });
-}
-
-// Session check route
-app.post("/session", verifyToken, (req, res) => {
-    res.json({ loggedIn: true, username: req.user.username });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running..."));
+// For session
+app.post('/session', (req, res) => {
+    if (req.session.user) {
+    res.json({
+        loggedIn: true,
+        username: req.session.user.username
+    });
+    } else {
+    res.json({ loggedIn: false });
+    }
+});
+
+app.use((req, res) => {
+    res.status(404).send("<h1>Page Not Found(404)</h1>");
+});
+
+app.use((req, res) => {
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+});
+
+
+const PORTs = process.env.PORT || 3000;
+
+app.listen(PORTs, () => {
+    console.log("Server is running...");
+}); 
