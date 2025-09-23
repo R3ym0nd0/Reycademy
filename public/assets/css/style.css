@@ -50,11 +50,37 @@ header {
     background-color: rgb(13, 27, 53);
 }
 
-#lol {
-    display: flex;
+#profile-container {
+    display: none;
     align-items: center;
     gap: 0.600rem;
 }
+
+#profile-container.show {
+    display: flex;
+} 
+
+#login-button {
+    display: none;
+
+    color: #ccc;
+    font-weight: bold;
+
+    border: 1px solid white;
+    padding: 8px 15px; 
+    border-radius: 5px;
+    text-decoration: none; 
+   
+}
+
+#login-button.show {
+    display: inline-block;
+}
+
+#login-button:hover {
+    background-color: white; 
+    color: black;
+} 
 
 #brand {
     display: flex;
@@ -122,10 +148,6 @@ nav a:hover {
 }
 
 #logout {
-    display: none;
-}
-
-#logout.show {
     display: inline-block; 
     margin: 0;
     padding: 12px;

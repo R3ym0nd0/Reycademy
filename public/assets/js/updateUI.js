@@ -1,8 +1,8 @@
 async function UpdateUI () {
 
     const nameDisplay = document.querySelector("#username-display");
-    const logIn = document.querySelector("#authentication");
-    const logOut = document.querySelector("#logout");
+    const logInButton = document.querySelector("#login-button");
+    const profile = document.querySelector("#profile-container");
 
     // Check if login, update UI
     try {
@@ -17,13 +17,11 @@ async function UpdateUI () {
         // If loggedIn value is true then update UI
         if (result.loggedIn) {
             nameDisplay.textContent = result.username;
-            if (logOut.classList.contains("show") && logIn.classList.contains("hide")) {
-                logIn.classList.remove("hide");
-                logOut.classList.remove("show");      
-            } else {
-                logIn.classList.add("hide");
-                logOut.classList.add("show");
-            }
+            logInButton.classList.remove("show");
+            profile.classList.add("show");
+        } else {
+            logInButton.classList.add("show");
+            profile.classList.remove("show");
         }
     } catch (err) {
         console.log("Something went wrong :(");

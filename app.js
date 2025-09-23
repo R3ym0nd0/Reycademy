@@ -32,7 +32,7 @@ const pool = new Pool({
 
 // Session setup
 app.use(session({
-    store: new pgSession({ 
+    store: new pgSession({
         pool: pool,
         tableName: 'session',   
         schemaName: 'public'
@@ -133,7 +133,7 @@ app.post('/session', (req, res) => {
         username: req.session.user.username
     });
     } else {
-    res.json({ loggedIn: false });
+        res.json({ loggedIn: false });
     }
 });
 

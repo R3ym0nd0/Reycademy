@@ -21,7 +21,6 @@ if (signup) {
                 credentials: "include"
             });
             
-            console.log(result);
             const a = await result.json();
 
             if (a.registered) {
