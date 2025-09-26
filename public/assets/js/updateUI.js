@@ -1,3 +1,13 @@
+function popUp() {
+    if (confirm("I agree to the terms and privacy on this website")) {
+        fetch('https://reycademy.onrender.com/accept-terms', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include'
+        });
+    }
+}
+
 async function UpdateUI () {
 
     const nameDisplay = document.querySelector("#username-display");
@@ -19,6 +29,9 @@ async function UpdateUI () {
             nameDisplay.textContent = result.username;
             logInButton.classList.remove("show");
             profile.classList.add("show");
+            if (!result.termsAccepted) {
+                popUp();
+            }
         } else {
             logInButton.classList.add("show");
             profile.classList.remove("show");

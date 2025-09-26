@@ -233,6 +233,11 @@ footer {
     text-decoration: none;
 }
 
+#platforms i{
+    color: rgb(84, 207, 255); 
+    font-size: 1.5rem;
+}
+
 footer p {
     margin: 1rem;
 }

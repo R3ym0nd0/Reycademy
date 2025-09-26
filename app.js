@@ -6,21 +6,95 @@ const { Pool } = require("pg");
 const app = express();
 
 // For security
+const rateLimit = require('express-rate-limit');
 const bcrypt = require("bcrypt");
 require('dotenv').config();
 const helmet = require("helmet");
 const cors = require("cors");
 
+// Trust first proxy because I'm using Render.com
 app.set("trust proxy", 1);
 
 // Middlewares
-app.use(helmet());
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 requests only per window per IP
+  message: { success: false, message: "Too many login attempts, please try again after 15 minutes"}
+});
+
+app.use(helmet({
+
+    xssFilter: false, // I disable because it's deprecated and I use CSP instead
+
+    // For XSS protection
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],   
+            scriptSrc:  ["'self'", "https://reycademy.onrender.com"],
+            connectSrc: ["'self'", "https://reycademy.onrender.com"],
+            styleSrc: ["'self'", "https://cdnjs.cloudflare.com"],
+            fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
+            frameSrc: ["'self'", "https://www.youtube.com"]
+
+            // The rest directives will use the default value 'self'
+        },
+    },
+
+    // For clickjacking protection
+    xFrameOptions: { 
+        action: "deny" // I don't want my site to be framed even in my own site
+    },
+
+    // For HTTPS downgrading and MITM in HTTP protection
+    hsts: {
+        maxAge: 31536000, // 1 year expiration (31,536,000 in seconds)
+        includeSubDomains: false, // I don't have subdomains
+        preload: false // I don't want to be included in browsers preload list
+    },
+
+    // For referrer information leak protection
+    referrerPolicy: {
+        policy: "strict-origin-when-cross-origin" // Only send full URL referrer when the origin is same
+    },
+   
+    permissionsPolicy: {
+        features: {
+            geolocation: [],
+            camera: [],                
+            microphone: [],
+            fullscreen: ["'self'", "https://www.youtube.com"]
+
+            // The rest features will be disabled by default
+        }
+    },
+
+    // For external resources that can be only embedded in my site if it provide CORP: cross-origin
+    crossOriginEmbedderPolicy: { 
+        policy: "require-corp" 
+    }
+  })
+);
+
+ // For permissions control to prevent abuse of features | Helmet don't set this header properly so I set it manually
+app.use((req, res, next) => {
+  res.setHeader(
+    "Permissions-Policy", "geolocation=(), camera=(), microphone=(), fullscreen=(self \"https://www.youtube.com\")"
+  );
+  next();
+});
+
 app.use(cors({
     origin: "https://reycademy.netlify.app",
-    credentials: true
+    credentials: true, 
+    methods: ["GET", "POST", "PUT"] // These are only allowed methods that my site will use
 }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), {
+    // Cache static files for 7 days so it don't always redownload
+    setHeaders: (res, path) => {
+      res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+    }
+}));
 
 // Database setup
 const pool = new Pool({
@@ -43,15 +117,20 @@ app.use(session({
     saveUninitialized: false,
 
     cookie: {
-        httpOnly: true,         
-        secure: true,        
-        sameSite: "none",    
-        maxAge: 1000 * 60 * 60
+        httpOnly: true, // This prevent client side JS to access the cookie(example: document.cookie)
+        secure: true, // This only send the cookie over HTTPS
+        sameSite: "none",  // My frontend and backend are on different origin so I need to use 'none'
+        maxAge: 1000 * 60 * 60 // (1000 * 60 = 60,000(1 minute ms)) * 60 = 3,600,000(60 minutes ms = 1 hour expiration)
     }
 }));
 
+// Helper functions
 function servePage(fileName) {
-    return (req, res) => { res.sendFile(path.join(__dirname, "public", fileName)); };
+    return (req, res) => { 
+        // Don't cache because It's sensitive pages
+        res.set("Cache-Control", "no-store");
+        res.sendFile(path.join(__dirname, "public", fileName)); 
+    };
 };
 
 async function hashedPassword (plainPassword) {
@@ -62,7 +141,7 @@ async function comparePassword(plainPassword, hashedPassword) {
     return await bcrypt.compare(plainPassword, hashedPassword);
 };
 
-// Routes
+// Routes 
 app.get("/login", servePage("login.html"));
 app.get("/signup", servePage("signup.html"));
 
@@ -89,7 +168,7 @@ app.post("/register", async (req, res) => {
 });
 
 // For login
-app.post("/submit", async (req, res) => {
+app.post("/submit", loginLimiter, async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -120,20 +199,39 @@ app.post("/logout", (req, res) => {
         return res.status(500).json({ success: false, message: "Logout failed" });
     }
 
-    res.clearCookie("connect.sid"); // Clear cookie after session is gone
+    res.clearCookie("connect.sid");
     return res.json({ success: true, message: "Logged out successfully" });
     });
 });
 
 // For session
-app.post('/session', (req, res) => {
+app.post('/session', async (req, res) => {
     if (req.session.user) {
-    res.json({
-        loggedIn: true,
-        username: req.session.user.username
-    });
+        // Grab termsAccepted in db
+        const result = await pool.query("SELECT terms_accepted FROM public.reycademy_users WHERE username = $1", [req.session.user.username]); 
+
+        // If user not found, default to false
+        const termsAccepted = result.rows[0]?.terms_accepted || false;
+        res.json({
+            loggedIn: true,
+            username: req.session.user.username,
+            termsAccepted: termsAccepted // true or false
+        });
     } else {
         res.json({ loggedIn: false });
+    }
+});
+
+app.post('/accept-terms', async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ success: false, message: "Not logged in" });
+    }
+    try {
+        await pool.query("UPDATE public.reycademy_users SET terms_accepted = TRUE WHERE username = $1", [req.session.user.username]);
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 });
 
@@ -144,7 +242,6 @@ app.use((req, res) => {
 app.use((req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
 });
-
 
 const PORTs = process.env.PORT || 3000;
 

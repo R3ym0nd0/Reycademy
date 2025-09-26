@@ -102,3 +102,10 @@ videoBar.forEach((btn) => {
         });
     });
 });
+
+// Temporary - Alert "Coming Soon" for cheatsheet links
+document.querySelectorAll(".cheatsheet a").forEach(link => {
+    link.addEventListener("click", () => {
+        alert("Coming Soon");
+    })
+});
