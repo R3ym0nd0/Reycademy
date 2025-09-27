@@ -1,6 +1,6 @@
-# Reycademy v0.2.1
+# Reycademy v0.4.0
 
-Welcome to version 0.2.1 of my Reycademy!  
+Welcome to version 0.4.0 of my Reycademy!  
 Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity.
 
 ### Live Site: [reycademy.netlify.app](https://reycademy.netlify.app/)
@@ -10,39 +10,45 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 
 ### DESKTOP
 
-<img width="1262" height="535" alt="ReycademyDesktop" src="https://github.com/user-attachments/assets/ba71c74a-f1fb-427b-90c6-9ee4a897e9f4" />
+<img width="1263" height="517" alt="Desktop_Reycademy" src="https://github.com/user-attachments/assets/58f14e65-4ce1-4d3a-b077-0bda502a1baf" />
 
 ### TABLET
 
-<img width="764" height="483" alt="ReycademyTablet" src="https://github.com/user-attachments/assets/463beebd-ec18-4d34-a6ae-6ae4d93aa2e8" />
+<img width="763" height="769" alt="Tablet_Reycademy" src="https://github.com/user-attachments/assets/93c2a6f1-9265-4dca-be39-db8116b43218" />
 
 ### MOBILE
 
-<img width="369" height="554" alt="ReycademyMobile" src="https://github.com/user-attachments/assets/2812f9b0-fc56-4074-a591-0ba31f0a8c17" />
+<img width="370" height="662" alt="Mobile_Reycademy" src="https://github.com/user-attachments/assets/16095bfa-807c-4926-ba67-dd0ba4426aa8" />
 
 ---
 
 ## What's New
 
-- Redesigned search bar UI
-- Added login & signup forms (frontend only)
-- Updated main font to 'Segoe UI'
+- Reycademy is now a full-stack
+- Added security headers and rate limiting to improve security
+- First login tracking popup implemented(no design)
+- Login/Logout is now working
+- added sidebar after login
+- Hero section redesigned, colors tweaked
+- Videos section background color updated
 
 ---
 
 ## Built With
 
-- HTML
-- CSS (Vanilla)
-- JavaScript (DOM manipulation)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Express.js](https://img.shields.io/badge/Express.js-339933?style=for-the-badge&logo=express&logoColor=000000)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
   
 ---
 
 ## Limitations
 
-- No actual video or quiz content yet
+- No actual video, quiz, challenges yet
 - Some of navigation sections are placeholders
-- No backend or database for now
+- Certain features are still under development
 
 ---
 
