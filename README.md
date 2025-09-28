@@ -52,6 +52,8 @@ The Reycademy **backend is secured with best practices**:
 - **Secure Cookies**: HttpOnly, Secure; SameSite=None (required for separate frontend origin)
 - Secure **CORS** configuration (frontend and backend origins separated)
 - Implemented **Rate Limiting** to prevent brute force attacks
+- **Password hashing** before storing in DB
+- Used **Environment variables** to hide secrets/config
 - Rated **A+ on [securityheaders.com](https://securityheaders.com/?q=https%3A%2F%2Freycademy.onrender.com)**
 
 > Note: While Reycademy implements security best practices, no system is 100% secure. If you find any vulnerabilities, please report it responsibly by contacting me, thank you!
