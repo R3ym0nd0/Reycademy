@@ -47,7 +47,7 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 ![Security Headers](https://img.shields.io/badge/Security%20Headers-A%2B-00FF00?style=for-the-badge)
 
 The Reycademy **backend is secured with best practices**:
-- Implemented **helmet** with CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permission-Policy, CORP, COOP, COEP
+- Implemented **helmet(customized)** with CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permission-Policy, CORP, COOP, COEP
 - Custom **Cache-Control** per page (depends of the page if sensitive)
 - **Secure Cookies**: HttpOnly, Secure; SameSite=None (required for separate frontend origin)
 - Secure **CORS** configuration (frontend and backend origins separated)
@@ -68,6 +68,8 @@ The Reycademy **backend is secured with best practices**:
 ## Why I'm Building This
 
 I'm building this because I saw that there are not many Tagalog cybersecurity lessons here in the Philippines. Most topics here are about web development or programming only. So I made Reycademy to help my fellow Filipinos who also want to learn cybersecurity in a simple and free way.
+
+At the same time, this site also serves as my personal lab for studying **web security**, practicing **OWASP Top 10** vulnerabilities, and testing secure backend configurations in a controlled and legal environment.  
 
 ---
 
