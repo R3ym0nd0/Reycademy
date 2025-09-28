@@ -41,7 +41,20 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Express.js](https://img.shields.io/badge/Express.js-339933?style=for-the-badge&logo=express&logoColor=000000)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-  
+
+## Reycademy Security
+
+![Security Headers](https://img.shields.io/badge/Security%20Headers-A%2B-00FF00?style=for-the-badge)
+
+The Reycademy **backend is secured with best practices**:
+- Implemented **helmet** with CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permission-Policy, CORP, COOP, COEP
+- Custom **Cache-Control** per page (depends of the page if sensitive)
+- **Secure Cookies**: HttpOnly, Secure; SameSite=None (required for separate frontend origin)
+- Secure **CORS** configuration (frontend and backend origins separated)
+- Implemented **Rate Limiting** to prevent brute force attacks
+- Rated **A+ on [securityheaders.com](https://securityheaders.com)**
+
+> Note: While Reycademy implements security best practices, no system is 100% secure. If you find any vulnerabilities, please report it responsibly by contacting me, thank you!
 ---
 
 ## Limitations
