@@ -27,7 +27,7 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 - Reycademy is now a full-stack
 - Added security headers and rate limiting to improve security
 - First login tracking popup implemented(no design)
-- Login/Logout is now working
+- Login/Register is now working
 - added sidebar after login
 - Hero section redesigned, colors tweaked
 - Videos section background color updated
@@ -54,7 +54,7 @@ The Reycademy **backend is secured with best practices**:
 - Implemented **Rate Limiting** to prevent brute force attacks
 - **Password hashing** before storing in DB
 - Used **Environment variables** to hide secrets/config
-- Rated **A+ on [securityheaders.com](https://securityheaders.com/?q=https%3A%2F%2Freycademy.onrender.com)**
+- Rated **A+ on [securityheaders.com](https://securityheaders.com/?q=https%3A%2F%2Freycademy.onrender.com&followRedirects=on)**
 
 > Note: While Reycademy implements security best practices, no system is 100% secure. If you find any vulnerabilities, please report it responsibly by contacting me, thank you!
 ---
