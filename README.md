@@ -16,7 +16,7 @@ Reycademy is a free cybersecurity learning site made for Filipinos. It offers Ta
 
 <img width="763" height="769" alt="Tablet_Reycademy" src="https://github.com/user-attachments/assets/93c2a6f1-9265-4dca-be39-db8116b43218" />
 
-### MOBILE
+### CELLPHONE
 
 <img width="370" height="662" alt="Mobile_Reycademy" src="https://github.com/user-attachments/assets/16095bfa-807c-4926-ba67-dd0ba4426aa8" />
 
