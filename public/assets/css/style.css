@@ -34,6 +34,44 @@ main {
     flex: 1;
 }
 
+#cookie-consent {
+    display: none;
+    flex: column;
+
+    justify-content: center;
+}
+
+#pop-up {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 95%;
+    margin: 0.500rem;
+    padding: 10px 5px;
+
+    color:  black;
+    font-size: 0.800rem;
+    text-align: center;
+
+    border-radius: 10px;
+    border: 2px solid rgb(34, 33, 33);
+    background-color: #ccc;   
+}
+
+#pop-up-button {
+    margin-top: 0.875rem;
+    padding: 5px 10px;
+    width: 30%;
+
+    font-weight: bold;
+    color: white;
+    background-color: black;
+
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 header {
     display: flex;
     flex-direction: column;
@@ -582,6 +620,10 @@ footer p a:hover {
 
 @media (min-width: 768px) {
 
+    #pop-up {
+        width: 80%; 
+    }
+
     header {
         flex-direction: row;
     }
@@ -622,6 +664,10 @@ footer p a:hover {
 }
 
 @media (min-width: 900px) {
+
+    #pop-up {
+        width: 60%; 
+    }
 
     #hero {
         flex-direction: row;
@@ -691,6 +737,10 @@ footer p a:hover {
 
 @media (min-width: 1024px) {
 
+    #pop-up {
+        width: 50%; 
+    }
+
     header {
         flex-direction: row;
     }
@@ -725,6 +775,7 @@ footer p a:hover {
 }
 
 @media (min-width: 1120px) {
+
     .video-card {
         width: 350px;
     }

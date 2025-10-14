@@ -19,7 +19,10 @@ app.set("trust proxy", 1);
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // 5 requests only per window per IP
-  message: { success: false, message: "Too many login attempts, please try again after 15 minutes"}
+  handler: (req, res) => {
+    // Custom response when rate limit(5 requests) is exceeded
+    res.status(429).json({ success: false, message: 'Too many login attempts. Try again later.' });
+  }
 });
 
 app.use(helmet({
@@ -56,17 +59,6 @@ app.use(helmet({
     referrerPolicy: {
         policy: "strict-origin-when-cross-origin" // Only send full URL referrer when the origin is same
     },
-   
-    permissionsPolicy: {
-        features: {
-            geolocation: [],
-            camera: [],                
-            microphone: [],
-            fullscreen: ["'self'", "https://www.youtube.com"]
-
-            // The rest features will be disabled by default
-        }
-    },
 
     // For external resources that can be only embedded in my site if it provide CORP: cross-origin
     crossOriginEmbedderPolicy: { 
@@ -75,7 +67,6 @@ app.use(helmet({
   })
 );
 
- // For permissions control to prevent abuse of features | Helmet don't set this header properly so I set it manually
 app.use((req, res, next) => {
   res.setHeader(
     "Permissions-Policy", "geolocation=(), camera=(), microphone=(), fullscreen=(self \"https://www.youtube.com\")"
@@ -184,6 +175,8 @@ app.post("/submit", loginLimiter, async (req, res) => {
         if (match) {
             req.session.user = { username : username };
             res.json({success: true});
+        } else {
+            res.status(401).json({ success: false, message: "Invalid username or password" });
         }
     } catch (err) {
         console.log(err);

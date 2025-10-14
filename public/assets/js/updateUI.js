@@ -1,12 +1,31 @@
 function popUp() {
-    if (confirm("I agree to the terms and privacy on this website")) {
-        fetch('https://reycademy.onrender.com/accept-terms', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            credentials: 'include'
-        });
-    }
+    const popUp = document.getElementById("cookie-consent");
+    const popUpButton = document.getElementById("pop-up-button");
+
+    popUp.style.display = "flex";
+
+    popUpButton.addEventListener("click", async () => {
+        try {
+            const res = await fetch('https://reycademy.onrender.com/accept-terms', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
+            });
+
+            const result = await res.json();
+
+            if (result.success) {
+                // hide the popup after accepting
+                popUp.style.display = "none";
+            } else {
+                console.log("Error accepting terms:", result.message);
+            }
+        } catch (err) {
+            console.log("Fetch error:", err);
+        }
+    });
 }
+
 
 async function UpdateUI () {
 
