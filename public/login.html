@@ -1,63 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Reycademy - Login</title>
-        <link rel="stylesheet" href="assets/css/auth.css">
-        <link rel="icon" href="assets/images/reycademyIcon.png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    </head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="assets/images/reycademyIcon.png">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+    <title>Reycademy - Login</title>
+  </head>
+
 <body>
+  
+  <main class="auth-card">
 
-    <header> 
-        <div id="brand">
-            <h2>Reycademy</h2>
-            <a href="/">Home</a>
-        </div>
-    </header>
+    <div class="brand"> 
+      <img src="assets/images/reycademy.png" alt="Reycademy Image" width="50" height="50">
+      <div>
+        <h1 id="login-heading">Reycademy</h1>
+        <p id="login-paragraph">Login to save your progress</p>
+      </div>
+    </div>
 
-    <main>
-        <form id="login">
-            <img src="assets/images/reycademy.png" id="reycademy-logo" alt="Reycademy Logo">
-            <h1>LOG IN</h1>
-            <label for="username">Username</label>
-            <input type="text" placeholder="Type Username" maxlength="20" minlength="3"  autocomplete="username" required id="username" name="username">
+    <form id="login">
+      <div class="field"> 
+        <label for="username">Username</label>
+        <input type="text" placeholder="Type Username" maxlength="20" minlength="3"  autocomplete="username" required id="username" name="username">
+      </div>  
 
-            <label for="password">Password</label>
-            <input type="password" placeholder="Type Password" maxlength="20" minlength="8" autocomplete="current-password" required id="password" name="password">
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Type Password" maxlength="20" minlength="8" autocomplete="current-password" required id="password" name="password">
+      </div>
 
-            <div id="auth"></div>
+      <div id="auth"></div>
 
-            <div id="login-buttons">    
-                <button type="submit" class="in-btn">Log in</button>
-                <a href="/signup" class="in-btn">Sign Up</a>
-            </div> 
-        </form>
-    </main>
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+        <a href="/signup" class="btn btn-secondary" id="signup-btn">Sign up</a>
+      </div>
 
-    <footer>
-        <div id="platforms">
-            <a href="https://www.youtube.com/@reycademy" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-youtube"  class="icon-links"></i>
-            </a>
-            <a href="https://github.com/R3ym0nd0" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"  class="icon-links"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-linkedin" class="icon-links"></i>
-            </a>
-            <a href="https://mail.google.com/mail/u/0/#search/in%3Asent+raymondjoaquin50%40gmail.com" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-envelope"  class="icon-links"></i>
-            </a>
-        </div>
+      <div class="meta">
+        <span><input id="remember" name="remember" type="checkbox"> <label for="remember">Remember me</label></span>
+        <a href="#" class="signup-link" id="forgot">Forgot password?</a>
+      </div>
+    </form>
+    
+  </main>
 
-        <p>&copy; 2025 Reycademy. All rights reserved.</p>
+  <script src="assets/js/auth.js"></script>
 
-        <a href="terms.html" class="legal-container">Terms of Use</a> |
-        <a href="privacy.html" class="legal-container">Privacy Policy</a>
-    </footer>
-
-    <script src="assets/js/auth.js"></script>
-</body> 
+</body>
 </html>

@@ -55,7 +55,7 @@ main {
 
     border-radius: 10px;
     border: 2px solid rgb(34, 33, 33);
-    background-color: #ccc;   
+    background-color: white;   
 }
 
 #pop-up-button {
@@ -294,8 +294,12 @@ nav a:hover {
 }
 
 .btn.secondary {
-    border: 2px solid #fff;
-    color: #fff;
+    background-color: white;
+    color: black;
+}
+
+.btn.secondary:hover {
+    background-color: #ccc;
 }
 
 .hero-image img {
@@ -578,7 +582,7 @@ footer p a:hover {
     color: skyblue;
 
     text-decoration: underline;
-}
+}   
 
 @media (max-width: 301px) {
   body::before {
