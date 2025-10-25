@@ -76,7 +76,7 @@ app.use((req, res, next) => {
 
 app.use(cors({
     origin: "https://reycademy.netlify.app",
-    credentials: true, 
+    credentials: true,  
     methods: ["GET", "POST", "PUT"] // These are only allowed methods that my site will use
 }));
 app.use(express.json());

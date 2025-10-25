@@ -75,6 +75,11 @@ input::placeholder{
     color: rgb(124, 122, 122);
 }
 
+#error {
+    text-align: center;
+    color: #ccc;
+}
+
 #agree {
     gap: 5px;
     margin: 10px 0;
