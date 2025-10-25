@@ -16,6 +16,14 @@ const cors = require("cors");
 app.set("trust proxy", 1);
 
 // Middlewares
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { error: 'Too many requests from this IP, try again later.' }
+});
+
+app.use(generalLimiter);
+
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // 5 requests only per window per IP
