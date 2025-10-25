@@ -1,89 +1,74 @@
-function popUp() {
+document.addEventListener("DOMContentLoaded", () => {
+  const nameDisplay = document.querySelector("#username-display");
+  const logInButton = document.querySelector("#login-button");
+  const profile = document.querySelector("#profile-container");
+  const logoutBtn = document.getElementById("logout");
+
+  logInButton.classList.add("show");
+  profile.classList.remove("show");
+
+  function popUp() {
     const popUp = document.getElementById("cookie-consent");
     const popUpButton = document.getElementById("pop-up-button");
 
     popUp.style.display = "flex";
 
     popUpButton.addEventListener("click", async () => {
-        try {
-            const res = await fetch('https://reycademy.onrender.com/accept-terms', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                credentials: 'include'
-            });
-
-            const result = await res.json();
-
-            if (result.success) {
-                // hide the popup after accepting
-                popUp.style.display = "none";
-            } else {
-                console.log("Error accepting terms:", result.message);
-            }
-        } catch (err) {
-            console.log("Fetch error:", err);
-        }
-    });
-}
-
-
-async function UpdateUI () {
-
-    const nameDisplay = document.querySelector("#username-display");
-    const logInButton = document.querySelector("#login-button");
-    const profile = document.querySelector("#profile-container");
-
-    // Check if login, update UI
-    try {
-        const res = await fetch("https://reycademy.onrender.com/session", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            credentials: "include"
-        })
-
-        const result = await res.json();
-        
-        // If loggedIn value is true then update UI
-        if (result.loggedIn) {
-            nameDisplay.textContent = result.username;
-            logInButton.classList.remove("show");
-            profile.classList.add("show");
-            if (!result.termsAccepted) {
-                popUp();
-            }
-        } else {
-            logInButton.classList.add("show");
-            profile.classList.remove("show");
-        }
-    } catch (err) {
-        console.log("Something went wrong :(");
-        console.log(err);
-    }
-}
-
-// Function for logout
-async function logOut () {
-
-    try {
-        const res = await fetch("https://reycademy.onrender.com/logout", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            credentials: "include"
+      try {
+        const res = await fetch('https://reycademy.onrender.com/accept-terms', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          credentials: 'include'
         });
-
         const result = await res.json();
-        
         if (result.success) {
-            console.log(result.message);
-        } else {
-            console.log(result.message)
-        };  
+          popUp.style.display = "none";
+        } 
+      } catch (err) {
+        console.log("Fetch error:", err);
+      }
+    });
+  }
 
+  async function UpdateUI() {
+    try {
+      const res = await fetch("https://reycademy.onrender.com/session", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        credentials: "include"
+      });
+
+      const result = await res.json();
+
+      if (result.loggedIn) {
+        nameDisplay.textContent = result.username;
+        logInButton.classList.remove("show");
+        profile.classList.add("show");
+
+        if (!result.termsAccepted) {
+          popUp()
+        };
+      }
     } catch (err) {
-        console.log("Something went wrong :(");
-        console.log(err);
+      console.log("Something went wrong :(", err);
     }
-};
+  }
 
-UpdateUI();
-document.getElementById("logout").addEventListener("click", logOut);
+  async function logOut() {
+    try {
+      const res = await fetch("https://reycademy.onrender.com/logout", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        credentials: "include"
+      });
+      const result = await res.json();
+      console.log(result.message);
+      UpdateUI();
+    } catch (err) {
+      console.log("Something went wrong :(", err);
+    }
+  }
+
+  logoutBtn.addEventListener("click", logOut);
+  UpdateUI();
+});

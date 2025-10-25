@@ -1,19 +1,125 @@
-#signup {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    max-width: 500px;
-    width: 100%;
-    padding: 30px;
-    
-    border-radius: 10px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-#signup h1 {
-    margin-bottom: 2rem;
+html, body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    height: 100%;
+}
 
-    color: rgb(84, 207, 255);
-    font-size: 1.4rem;
+body {
+    min-height: 100%;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url("../images/heroBackground.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;  
+}
+
+.auth-card{
+    width: 90%;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 28px;
+    border: 2px solid #ccc;
+}
+
+.brand{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+#login-heading {
+    font-weight: lighter;
+    color: rgb(84, 207, 255); 
+}
+
+#login-paragraph {
+    color: #ccc;
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label{
+    margin-top: 0.700rem;
+
+    font-size: 13px;
+    color: #ccc;
+}
+
+input[type="text"], input[type="password"]{
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid black;
+    font-size: 15px;
+    outline: none;
+}
+
+input::placeholder{
+    color: rgb(124, 122, 122);
+}
+
+#agree {
+    gap: 5px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+#agree a {
+    color: white;
+}
+
+#agree a:hover {
+    color: skyblue;
+}
+
+#login-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+#login-buttons .in-btn {
+    background-color: yellow;
+    min-width: 12.5rem;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+#login-redirect {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    
+    color: #ccc;
+}
+
+#login-redirect a {
+    color: white;
+}
+
+#login-redirect a:hover {
+    color: skyblue;
 }

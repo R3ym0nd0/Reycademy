@@ -4,25 +4,21 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reycademy - Signup</title>
-        <link rel="stylesheet" href="assets/css/auth.css">
         <link rel="stylesheet" href="assets/css/signup.css">
         <link rel="icon" href="assets/images/reycademyIcon.png">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </head>
 <body>
 
-    <header> 
-        <div id="brand">
-            <h2>Reycademy</h2>
-            <a href="/" target="_self">Home</a>
+    <main class="auth-card">
+      <div class="brand"> 
+        <img src="assets/images/reycademy.png" alt="Reycademy Image" width="50" height="50">
+        <div>
+          <h1 id="login-heading">Reycademy</h1>
+          <p id="login-paragraph">Signup to have an account</p>
         </div>
-    </header>
-
-    <main>
+      </div>
 
         <form id="signup">
-            <img src="assets/images/reycademy.png" id="reycademy-logo" alt="Reycademy Logo">
-            <h1>SIGN UP</h1>
             <label for="first-name">First Name</label>
             <input type="text" placeholder="Type First Name" maxlength="10" minlength="3" autocomplete="given-name" required id="first-name" name="firstname">
 
@@ -53,28 +49,6 @@
         </form>
         
     </main>
-
-     <footer>
-        <div id="platforms">
-            <a href="https://www.youtube.com/@reycademy" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-youtube"  class="icon-links"></i>
-            </a>
-            <a href="https://github.com/R3ym0nd0" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"  class="icon-links"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-linkedin" class="icon-links"></i>
-            </a>
-            <a href="https://mail.google.com/mail/u/0/#search/in%3Asent+raymondjoaquin50%40gmail.com" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-envelope"  class="icon-links"></i>
-            </a>
-        </div>
-
-        <p>&copy; 2025 Reycademy. All rights reserved.</p>
-
-        <a href="terms.html" class="legal-container">Terms of Use</a> |
-        <a href="privacy.html" class="legal-container">Privacy Policy</a>
-    </footer>
 
     <script src="assets/js/auth.js"></script>
 </body> 
