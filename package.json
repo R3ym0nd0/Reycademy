@@ -1,7 +1,7 @@
 {
   "name": "reycademy",
-  "version": "1.0.0",
-  "description": "Welcome to version 0.2.0 of my Reycademy!  \r Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity easily.",
+  "version": "0.4.0",
+  "description": "Welcome to version 0.4.0 of my Reycademy!  \r Reycademy is a free cybersecurity learning site made for Filipinos. It offers Tagalog video lessons and hands-on training, designed to help beginners understand cybersecurity easily.",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",

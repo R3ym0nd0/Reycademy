@@ -97,8 +97,7 @@ videoBar.forEach((btn) => {
 
         // Filter video cards based on category
         videoCards.forEach((card) => {
-            card.style.display = category === "all" || card.dataset.category === category
-                ? "block" : "none";
+            card.style.display = category === "all" || card.dataset.category === category ? "block" : "none";
         });
     });
 });

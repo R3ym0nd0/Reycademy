@@ -25,10 +25,11 @@ body {
 }
 
 .auth-card{
+    background-color: none;
     width: 90%;
     max-width: 420px;
     border-radius: 10px;
-    padding: 28px;
+    padding: 1rem;
     border: 2px solid #ccc;
 }
 
@@ -61,6 +62,10 @@ label{
     color: #ccc;
 }
 
+input {
+    margin: 3px 0;
+}
+
 input[type="text"], input[type="password"]{
     width: 100%;
     padding: 10px 14px;
@@ -78,6 +83,7 @@ input::placeholder{
 #error {
     text-align: center;
     color: #ccc;
+    margin: 5px;
 }
 
 #agree {
@@ -113,6 +119,11 @@ input::placeholder{
     font-size: 15px;
 }
 
+#login-buttons .in-btn:hover{
+    background: rgb(235, 201, 50);
+
+}
+
 #login-redirect {
     display: flex;
     justify-content: center;
@@ -127,4 +138,25 @@ input::placeholder{
 
 #login-redirect a:hover {
     color: skyblue;
+}
+
+@media (max-width: 301px) {
+  body::before {
+    content: "You can't view Reycademy at 301px or less. Enjoy the void :)";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 100vh;
+
+    font-size: 24px;
+    text-align: center;
+    color: white;
+
+    background: black;
+  }
+
+  body > * {
+    display: none;
+  }
 }
