@@ -3,7 +3,9 @@ const session = require("express-session");
 const pgSession = require('connect-pg-simple')(session);
 const path = require("path");
 const { Pool } = require("pg");
-const app = express();
+
+// For my signup validation
+const { body, validationResult } = require('express-validator');
 
 // For security
 const rateLimit = require('express-rate-limit');
@@ -11,6 +13,8 @@ const bcrypt = require("bcrypt");
 require('dotenv').config();
 const helmet = require("helmet");
 const cors = require("cors");
+
+const app = express();
 
 // Trust first proxy because I'm using Render.com
 app.set("trust proxy", 1);
@@ -140,33 +144,57 @@ async function comparePassword(plainPassword, hashedPassword) {
     return await bcrypt.compare(plainPassword, hashedPassword);
 };
 
-// Routes 
+// For authentication Routes 
 app.get("/login", servePage("login.html"));
 app.get("/signup", servePage("signup.html"));
 
-// For signup
-app.post("/register", async (req, res) => {
-    const { firstName, lastName, username, password, confirmPassword } = req.body;
+// For signup route
+app.post("/register", [
 
-    try {
-        // The password hash
-        const hash = await hashedPassword(confirmPassword);
+    body("firstname")
+        .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Firstname must contain only letters and be 2–30 characters"),
 
-        if (password === confirmPassword) {     
-            await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
-            res.json({ registered : true });
-        } else  {
-            res.status(401).json({registered : false, message : "Pasword & Confirm Password are not same"});
-        }
-        
-    } catch (err) {
-        res.status(500).json({ registered:   false, message: "Internal Server Error" });
-        console.log(err);
-    };
+    body("lastname")
+        .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Lastname must contain only letters and be 2–30 characters"),
+
+    body("username")
+        .matches(/^[a-zA-Z0-9_]{3,20}$/).withMessage("Username must be 3–20 characters and contain only letters, numbers, or underscores"),
+
+    body("password")
+        .isLength({ min: 8 }).withMessage("Password must be at least 8 characters")
+        .matches(/[A-Z]/).withMessage("Must contain an uppercase letter")
+        .matches(/[a-z]/).withMessage("Must contain a lowercase letter")
+        .matches(/\d/).withMessage("Must contain a number")
+        .matches(/[@$!%*?&]/).withMessage("Must contain a special character")
+
+], async (req, res) => {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({registered: false, errors: errors.array()});
+  }
+
+  const { firstname, lastname, username, password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({registered: false, message: "Password & Confirm Password do not match"});
+  }
+
+  try {
+    const hash = await hashedPassword(password);
+
+    await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstname, lastname, username, hash]);
+
+    res.json({ registered: true, message: "User registered successfully!"});
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({registered: false, message: "Internal Server Error"});
+  }
 
 });
 
-// For login
+// For login route
 app.post("/submit", loginLimiter, async (req, res) => {
     const { username, password } = req.body;
 
@@ -192,7 +220,7 @@ app.post("/submit", loginLimiter, async (req, res) => {
     }
 });
 
-// For logout
+// For logout route 
 app.post("/logout", (req, res) => {
   req.session.destroy(err => {
     if (err) {
@@ -205,7 +233,7 @@ app.post("/logout", (req, res) => {
     });
 });
 
-// For session
+// For session route
 app.post('/session', async (req, res) => {
     if (req.session.user) {
         // Grab termsAccepted in db
@@ -223,6 +251,7 @@ app.post('/session', async (req, res) => {
     }
 });
 
+// For accept terms route
 app.post('/accept-terms', async (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ success: false, message: "Not logged in" });
@@ -236,6 +265,7 @@ app.post('/accept-terms', async (req, res) => {
     }
 });
 
+// 404 and 500 error handlers
 app.use((req, res) => {
     res.status(404).send("<h1>Page Not Found(404)</h1>");
 });
@@ -246,6 +276,7 @@ app.use((req, res) => {
 
 const PORTs = process.env.PORT || 3000;
 
+// Start my server
 app.listen(PORTs, () => {
     console.log("Server is running...");
 }); 
