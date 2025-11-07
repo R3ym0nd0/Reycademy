@@ -1,16 +1,16 @@
 const express = require("express");
 const session = require("express-session");
-const pgSession = require('connect-pg-simple')(session);
+const pgSession = require("connect-pg-simple")(session);
 const path = require("path");
 const { Pool } = require("pg");
 
 // For my signup validation
-const { body, validationResult } = require('express-validator');
+const { body, validationResult } = require("express-validator");
 
 // For security
-const rateLimit = require('express-rate-limit');
+const rateLimit = require("express-rate-limit");
 const bcrypt = require("bcrypt");
-require('dotenv').config();
+require("dotenv").config();
 const helmet = require("helmet");
 const cors = require("cors");
 
@@ -19,27 +19,27 @@ const app = express();
 // Trust first proxy because I'm using Render.com
 app.set("trust proxy", 1);
 
-// Middlewares
+// For rate limiter middlewares
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: { error: 'Too many requests from this IP, try again later.' }
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: { error: "Too many requests from this IP, try again later."}
+});
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // 5 requests only per window per IP
+    handler: (req, res) => {
+    // Custom response when rate limit(5 requests) exceeded
+    res.status(429).json({ success: false, message: "Too many login attempts. Try again later."});
+    }
 });
 
 app.use(generalLimiter);
 
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 requests only per window per IP
-  handler: (req, res) => {
-    // Custom response when rate limit(5 requests) exceeded
-    res.status(429).json({ success: false, message: 'Too many login attempts. Try again later.' });
-  }
-});
-
 app.use(helmet({
 
-    xssFilter: false, // I disable because it's deprecated and I use CSP instead
+    xssFilter: false, // I disable because it's deprecated and I use CSP insteadx
 
     // For XSS protection
     contentSecurityPolicy: {
@@ -50,8 +50,6 @@ app.use(helmet({
             styleSrc: ["'self'", "https://cdnjs.cloudflare.com"],
             fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
             frameSrc: ["'self'", "https://www.youtube.com"]
-
-            // The rest directives will use the default value 'self'
         },
     },
 
@@ -80,10 +78,10 @@ app.use(helmet({
 );
 
 app.use((req, res, next) => {
-  res.setHeader(
-    "Permissions-Policy", "geolocation=(), camera=(), microphone=(), fullscreen=(self \"https://www.youtube.com\")"
-  );
-  next();
+    res.setHeader(
+        "Permissions-Policy", "geolocation=(), camera=(), microphone=(), fullscreen=(self \"https://www.youtube.com\")"
+    );
+    next();
 });
 
 app.use(cors({
@@ -91,11 +89,12 @@ app.use(cors({
     credentials: true,  
     methods: ["GET", "POST", "PUT"] // These are only allowed methods that my site will use
 }));
-app.use(express.json());
+
+app.use(express.json({ limit: "10kb" })); 
 app.use(express.static(path.join(__dirname, "public"), {
     // Cache static files for 7 days so it don't always redownload
     setHeaders: (res, path) => {
-      res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+        res.setHeader("Cache-Control", "public, max-age=604800, immutable");
     }
 }));
 
@@ -104,15 +103,15 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
-  }
+    }
 });
 
 // Session setup
 app.use(session({
     store: new pgSession({
         pool: pool,
-        tableName: 'session',   
-        schemaName: 'public'
+        tableName: "session",   
+        schemaName: "public"
      }),
 
     secret: process.env.SESSION_SECRET,
@@ -151,6 +150,7 @@ app.get("/signup", servePage("signup.html"));
 // For signup route
 app.post("/register", [
 
+    // Signup input validation using regex
     body("firstname")
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Firstname must contain only letters and be 2–30 characters"),
 
@@ -169,28 +169,31 @@ app.post("/register", [
 
 ], async (req, res) => {
 
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({registered: false, errors: errors.array()});
-  }
+    const errors = validationResult(req);
 
-  const { firstname, lastname, username, password, confirmPassword } = req.body;
+    // This will check if there's an error in every user input when creating account
+    if (!errors.isEmpty()) {
+        return res.status(400).json({registered: false, message: errors.array()});
+    }
 
-  if (password !== confirmPassword) {
-    return res.status(400).json({registered: false, message: "Password & Confirm Password do not match"});
-  }
+    const { firstname, lastname, username, password, confirmPassword } = req.body;
 
-  try {
-    const hash = await hashedPassword(password);
+    // This will check if password is the same as confirmPassword 
+    if (password !== confirmPassword) {
+        return res.status(400).json({registered: false, message: "Password & Confirm Password do not match"});
+    }
 
-    await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstname, lastname, username, hash]);
+    try {
+        const hash = await hashedPassword(password);
 
-    res.json({ registered: true, message: "User registered successfully!"});
+        // This will insert the user account into my DB table
+        await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstname, lastname, username, hash]);
+        res.json({ registered: true, message: "User registered successfully!"});
 
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({registered: false, message: "Internal Server Error"});
-  }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({registered: false, message: "Internal Server Error"});
+    } 
 
 });
 
@@ -222,7 +225,7 @@ app.post("/submit", loginLimiter, async (req, res) => {
 
 // For logout route 
 app.post("/logout", (req, res) => {
-  req.session.destroy(err => {
+    req.session.destroy(err => {
     if (err) {
         console.error(err);
         return res.status(500).json({ success: false, message: "Logout failed" });
@@ -234,7 +237,7 @@ app.post("/logout", (req, res) => {
 });
 
 // For session route
-app.post('/session', async (req, res) => {
+app.post("/session", async (req, res) => {
     if (req.session.user) {
         // Grab termsAccepted in db
         const result = await pool.query("SELECT terms_accepted FROM public.reycademy_users WHERE username = $1", [req.session.user.username]); 
@@ -252,7 +255,7 @@ app.post('/session', async (req, res) => {
 });
 
 // For accept terms route
-app.post('/accept-terms', async (req, res) => {
+app.post("/accept-terms", async (req, res) => {
     if (!req.session.user) {
         return res.status(401).json({ success: false, message: "Not logged in" });
     }
@@ -266,11 +269,12 @@ app.post('/accept-terms', async (req, res) => {
 });
 
 // 404 and 500 error handlers
-app.use((req, res) => {
-    res.status(404).send("<h1>Page Not Found(404)</h1>");
+app.use((req, res, next) => {
+    res.status(404).send("<h1>Page Not Found (404)</h1>");
 });
 
-app.use((req, res) => {
+app.use((err, req, res, next) => {
+    console.error(err); 
     res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
