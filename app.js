@@ -153,11 +153,11 @@ app.get("/signup", servePage("signup.html"));
 app.post("/register", [
 
     // Signup input validation using regex
-    body("firstname")
+    body("firstName")
         .trim()
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Firstname must contain only letters and be 2–30 characters"),
 
-    body("lastname")
+    body("lastName")
         .trim()
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Lastname must contain only letters and be 2–30 characters"),
 
