@@ -21,17 +21,19 @@ app.set("trust proxy", 1);
 
 // For rate limiter middlewares
 const generalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
+    windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100,
-    message: { error: "Too many requests from this IP, try again later."}
+    handler: (req, res) => {
+        // Custom response when rate limit(100 requests) exceeded in 15 mins
+        res.status(429).json({ success: false, message: "Too many requests from this IP, try again later."});
+    }
 });
 
 const loginLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // 5 requests only per window per IP
+    windowMs: 15 * 60 * 1000, 
+    max: 5,
     handler: (req, res) => {
-    // Custom response when rate limit(5 requests) exceeded
-    res.status(429).json({ success: false, message: "Too many login attempts. Try again later."});
+        res.status(429).json({ success: false, message: "Too many login attempts. Try again later."});
     }
 });
 
@@ -39,7 +41,7 @@ app.use(generalLimiter);
 
 app.use(helmet({
 
-    xssFilter: false, // I disable because it's deprecated and I use CSP insteadx
+    xssFilter: false, // I disable because it's deprecated and I use CSP instead
 
     // For XSS protection
     contentSecurityPolicy: {
@@ -152,20 +154,24 @@ app.post("/register", [
 
     // Signup input validation using regex
     body("firstname")
+        .trim()
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Firstname must contain only letters and be 2–30 characters"),
 
     body("lastname")
+        .trim()
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Lastname must contain only letters and be 2–30 characters"),
 
     body("username")
+        .trim()
         .matches(/^[a-zA-Z0-9_]{3,20}$/).withMessage("Username must be 3–20 characters and contain only letters, numbers, or underscores"),
 
     body("password")
+        .trim()
         .isLength({ min: 8 }).withMessage("Password must be at least 8 characters")
-        .matches(/[A-Z]/).withMessage("Must contain an uppercase letter")
-        .matches(/[a-z]/).withMessage("Must contain a lowercase letter")
-        .matches(/\d/).withMessage("Must contain a number")
-        .matches(/[@$!%*?&]/).withMessage("Must contain a special character")
+        .matches(/[A-Z]/).withMessage("Password must contain an uppercase letter")
+        .matches(/[a-z]/).withMessage("Password must contain a lowercase letter")
+        .matches(/\d/).withMessage("Password must contain a number")
+        .matches(/[@$!%*?&]/).withMessage("Password must contain a special character")
 
 ], async (req, res) => {
 
@@ -173,10 +179,11 @@ app.post("/register", [
 
     // This will check if there's an error in every user input when creating account
     if (!errors.isEmpty()) {
-        return res.status(400).json({registered: false, message: errors.array()});
+        console.log(errors.array());
+        return res.status(400).json({registered: false, message: errors.array()[0].msg}); // Send only the first error message
     }
 
-    const { firstname, lastname, username, password, confirmPassword } = req.body;
+    const { firstName, lastName, username, password, confirmPassword } = req.body;
 
     // This will check if password is the same as confirmPassword 
     if (password !== confirmPassword) {
@@ -187,7 +194,7 @@ app.post("/register", [
         const hash = await hashedPassword(password);
 
         // This will insert the user account into my DB table
-        await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstname, lastname, username, hash]);
+        await pool.query("INSERT INTO public.reycademy_users(firstname, lastname, username, password) VALUES($1, $2, $3, $4)", [firstName, lastName, username, hash]);
         res.json({ registered: true, message: "User registered successfully!"});
 
     } catch (err) {
@@ -269,7 +276,7 @@ app.post("/accept-terms", async (req, res) => {
 });
 
 // 404 and 500 error handlers
-app.use((req, res, next) => {
+app.use((req, res, next) => {   
     res.status(404).send("<h1>Page Not Found (404)</h1>");
 });
 
@@ -278,7 +285,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
-const PORTs = process.env.PORT || 3000;
+const PORTs = process.env.PORT || 3000; 
 
 // Start my server
 app.listen(PORTs, () => {
