@@ -31,7 +31,7 @@ searchBar.addEventListener("input", async () => {
         const res = await fetch(`https://reycademy.onrender.com/search?query=${encodeURIComponent(keyword)}`);
         const results = await res.json();
 
-        if (results.length === 0) {
+        if (!Array.isArray(results) || results.length === 0) {
             ul.innerHTML = `<li id="no-result">No match found</li>`;
         } else {
             results.forEach(video => {
@@ -52,6 +52,8 @@ searchBar.addEventListener("input", async () => {
         suggestionBox.classList.add("show");
     } catch (err) {
         console.error(err);
+        ul.innerHTML = `<li id="no-result">Error fetching results</li>`;
+        suggestionBox.classList.add("show");
     }
 });
 
@@ -106,7 +108,7 @@ videoBar.forEach(btn => {
             const res = await fetch(`https://reycademy.onrender.com/search?query=&category=${encodeURIComponent(category)}`);
             const results = await res.json();
             renderVideos(results);
-        } catch (err) {
+        } catch (err) { 
             console.error(err);
         }
     });
