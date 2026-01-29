@@ -1,110 +1,123 @@
-const videoBar = document.querySelectorAll(".video-bar"); // All category filter buttons
-const videoCards = document.querySelectorAll(".video-card"); // All video cards
-const searchBar = document.querySelector("#search-bar"); // The input element for searching
-const suggestionBox = document.querySelector("#suggestions"); // Suggestion dropdown container
-const searchItems = document.querySelectorAll("#suggestions ul li"); // All <li> items (search suggestions)
-const noResult = document.querySelector("#no-result"); // The "No result" message in suggestions
+const videoBar = document.querySelectorAll(".video-bar"); 
+const searchBar = document.querySelector("#search-bar");
+const suggestionBox = document.querySelector("#suggestions");
+const videoList = document.querySelector("#video-list");
 
-// === FILTER suggestions based on user input ===
-searchBar.addEventListener("input", () => {
-    const keyword = searchBar.value.toLowerCase(); // Get lowercase input value
-    let hasMatch = false;
+searchBar.addEventListener("focus", () => {
 
-    // If input is empty, show only main categories, hide episodes
-    if (keyword === "") {
-        searchItems.forEach((li) => {
-            if (li.classList.contains("episodes")) {
-                // Hide episode suggestions
-                li.style.display = "none"; 
-            } else {
-                // Show main category suggestions
-                li.style.display = "block"; 
-            }
-        });
-        // Hide "no result" text
-        noResult.style.display = "none"; 
+    if (suggestionBox.querySelector('ul').children.length > 0) {
+        suggestionBox.classList.add("show");
+    }
+    
+});
+
+searchBar.addEventListener("blur", () => {
+
+    suggestionBox.classList.remove("show");
+
+});
+
+searchBar.addEventListener("input", async () => {
+    const keyword = searchBar.value.trim();
+    const ul = suggestionBox.querySelector('ul');
+    ul.innerHTML = '';
+
+    if (!keyword) {
+        suggestionBox.classList.remove("show");
         return;
     }
 
-    // Filter suggestion list based on user input
-    searchItems.forEach((li) => {
-        const textMatch = li.textContent.toLowerCase().includes(keyword);
-        li.style.display = textMatch ? "block" : "none"; // Show/hide based on match
-        if (textMatch) hasMatch = true; // Mark if at least one match is found
-    });
+    try {
+        const res = await fetch(`/search?query=${encodeURIComponent(keyword)}`);
+        const results = await res.json();
 
-    // Show or hide the "no result" message
-    noResult.style.display = hasMatch ? "none" : "block";
-    suggestionBox.classList.add("show"); // Always show suggestion box while typing
-});
+        if (results.length === 0) {
+            ul.innerHTML = `<li id="no-result">No match found</li>`;
+        } else {
+            results.forEach(video => {
+                const li = document.createElement('li');
+                li.textContent = video.title;
+                li.dataset.category = video.category;
+                li.dataset.ep = video.episode;
+                li.addEventListener('mousedown', () => {
+                    videoBar.forEach(b => b.classList.remove("active"));
+                    renderVideos([video]);
+                    suggestionBox.classList.remove("show");
+                });
 
-// === Pressing ENTER will select the FIRST matched suggestion ===
-searchBar.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        const keyword = searchBar.value.toLowerCase();
+                ul.appendChild(li);
+            });
+        }
 
-        // Find first suggestion that includes the keyword
-        const match = Array.from(searchItems).find((li) => li.textContent.toLowerCase().includes(keyword));
-
-        // If match found, simulate a click on that suggestion
-        if (match) match.click();
+        suggestionBox.classList.add("show");
+    } catch (err) {
+        console.error(err);
     }
 });
 
-// === Show suggestion box when clicking the search bar ===
-searchBar.addEventListener("click", () => {
-    suggestionBox.classList.add("show");
+searchBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+
+        videoBar.forEach(b => b.classList.remove("active"));
+
+        const firstItem = suggestionBox.querySelector("ul li:not(#no-result)");
+        if (!firstItem) return;
+
+        firstItem.dispatchEvent(new MouseEvent("mousedown"));
+    }
 });
 
-// === Hide suggestion box when search bar loses focus ===
-searchBar.addEventListener("blur", () => {
-    setTimeout(() => {
-        suggestionBox.classList.remove("show");
-    }, 150);
-});
+function renderVideos(videos) {
+    videoList.innerHTML = "";
 
-// === When a suggestion is clicked, filter the video cards ===
-searchItems.forEach((item) => {
-    item.addEventListener("click", () => {
-        const { category, ep } = item.dataset; // Get the category and episode from data attributes
+    videos.forEach(video => {
+        const card = document.createElement("div");
+        card.classList.add("video-card");
+        card.dataset.category = video.category;
+        card.dataset.ep = video.episode || "all";
 
-        // Scroll to the videos section
-        const section = document.getElementById('videos');
-        if (section) section.scrollIntoView({ behavior: 'smooth' });
-
-        // Remove "active" class from all category buttons
-        videoBar.forEach((btn) => btn.classList.remove("active"));
-
-        // Loop through all video cards and filter
-        videoCards.forEach((card) => {
-            const matchCategory = category === "all" || card.dataset.category === category;
-            const matchEpisode = ep === "all" || card.dataset.ep === ep;
-
-            // Show only matched cards
-            card.style.display = matchCategory && matchEpisode ? "block" : "none";
-        });
+        card.innerHTML = `
+            <iframe width="560" height="315" src="${video.url}" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            <h3>${video.title}</h3>
+            <p>Coming Soon</p>
+            <div class="button-container">
+                <a href="#" class="video-button">Quiz</a>
+                <a href="#" class="video-button">Hands on</a>
+            </div>
+            <div class="cheatsheet"><a>Cheatsheet</a></div>
+            <div class="video-meta">
+                <img src="assets/images/me.PNG" alt="Profile picture of Reymond" class="author-pic">
+                <p class="author">By <a href="https://www.linkedin.com/in/reymond-joaquin-3b5954308" target="_blank" class="teacher">Reymond Joaquin</a> | 2025</p>
+            </div>
+        `;
+        videoList.appendChild(card);
     });
-});
+}
 
-// === When a category button is clicked, filter by category only ===
-videoBar.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        const { category } = btn.dataset;
+videoBar.forEach(btn => {
+    btn.addEventListener("click", async () => {
+        const category = btn.dataset.category;
 
-        // Remove "active" class from all buttons and set active one
-        videoBar.forEach((b) => b.classList.remove("active"));
+        videoBar.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
-        // Filter video cards based on category
-        videoCards.forEach((card) => {
-            card.style.display = category === "all" || card.dataset.category === category ? "block" : "none";
-        });
+        try {
+            const res = await fetch(`/search?query=&category=${encodeURIComponent(category)}`);
+            const results = await res.json();
+            renderVideos(results);
+        } catch (err) {
+            console.error(err);
+        }
     });
 });
 
-// Temporary - Alert "Coming Soon" for cheatsheet links
-document.querySelectorAll(".cheatsheet a").forEach(link => {
-    link.addEventListener("click", () => {
-        alert("Coming Soon");
-    })
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const res = await fetch("/search?category=all");
+        const results = await res.json();
+        renderVideos(results);
+    } catch (err) {
+        console.error(err);
+    }
 });

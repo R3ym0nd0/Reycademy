@@ -37,6 +37,14 @@ const loginLimiter = rateLimit({
     }
 });
 
+const searchBarLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 500,
+    handler: (req, res) => {
+        res.status(429).json({ success: false, message: "Too many search requests. Try again later."});
+    }
+});
+
 app.use(generalLimiter);
 
 app.use(helmet({
@@ -153,11 +161,11 @@ app.get("/signup", servePage("signup.html"));
 app.post("/register", [
 
     // Signup input validation using regex
-    body("firstname")
+    body("firstName")
         .trim()
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Firstname must contain only letters and be 2–30 characters"),
 
-    body("lastname")
+    body("lastName")
         .trim()
         .matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,30}$/).withMessage("Lastname must contain only letters and be 2–30 characters"),
 
@@ -269,6 +277,45 @@ app.post("/accept-terms", async (req, res) => {
     try {
         await pool.query("UPDATE public.reycademy_users SET terms_accepted = TRUE WHERE username = $1", [req.session.user.username]);
         res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+});
+
+// Search videos
+app.get("/search", searchBarLimiter, async (req, res) => {
+   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate'); // Just don't cache search results haha
+
+    try {
+        const keyword = req.query.query || '';
+        const category = req.query.category || '';
+
+        let sql = 'SELECT title, url FROM public.reycademy_videos WHERE 1=1';
+        let params = [];
+        let paramIndex = 1;
+
+        // Filter by keyword in title only
+        if (keyword) {
+            sql += ` AND LOWER(title) LIKE $${paramIndex}`;
+            params.push(`%${keyword.toLowerCase()}%`);
+            paramIndex++;
+        }
+
+        // Filter by category, ignore "all"
+        if (category && category !== "all") {
+            sql += ` AND category = $${paramIndex}`;
+            params.push(category);
+            paramIndex++;
+        }
+
+        // Sort newest first
+        sql += ' ORDER BY created_at DESC LIMIT 10';
+
+        const { rows } = await pool.query(sql, params);
+
+        res.json(rows);
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ success: false, message: "Internal Server Error" });

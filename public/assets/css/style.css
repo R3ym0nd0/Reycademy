@@ -372,10 +372,6 @@ nav a:hover {
     background-color: rgb(197, 193, 193); 
 }
 
-#no-result {
-    display: none;
-}
-
 #videos {
     padding: 40px 10px;
 
