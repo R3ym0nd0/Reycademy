@@ -28,7 +28,7 @@ searchBar.addEventListener("input", async () => {
     }
 
     try {
-        const res = await fetch(`/search?query=${encodeURIComponent(keyword)}`);
+        const res = await fetch(`https://reycademy.onrender.com/search?query=${encodeURIComponent(keyword)}`);
         const results = await res.json();
 
         if (results.length === 0) {
@@ -103,7 +103,7 @@ videoBar.forEach(btn => {
         btn.classList.add("active");
 
         try {
-            const res = await fetch(`/search?query=&category=${encodeURIComponent(category)}`);
+            const res = await fetch(`https://reycademy.onrender.com/search?query=&category=${encodeURIComponent(category)}`);
             const results = await res.json();
             renderVideos(results);
         } catch (err) {
@@ -114,7 +114,7 @@ videoBar.forEach(btn => {
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const res = await fetch("/search?category=all");
+        const res = await fetch("https://reycademy.onrender.com/search?category=all");
         const results = await res.json();
         renderVideos(results);
     } catch (err) {
