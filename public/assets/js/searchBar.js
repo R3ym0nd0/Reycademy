@@ -73,6 +73,11 @@ searchBar.addEventListener("keydown", (e) => {
 function renderVideos(videos) {
     videoList.innerHTML = "";
 
+    if (!Array.isArray(videos) || videos.length === 0) {
+        videoList.innerHTML = `<p>No videos found</p>`;
+        return;
+    }
+
     videos.forEach(video => {
         const card = document.createElement("div");
         card.classList.add("video-card");
