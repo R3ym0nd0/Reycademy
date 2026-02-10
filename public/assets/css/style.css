@@ -22,7 +22,7 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     color: white;
 
-    background-image: url("../images/heroBackground.jpg");
+    background: radial-gradient(circle at top, #1e293b, #0b1220 60%);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -84,8 +84,9 @@ header {
     right: 0;
     padding: 1rem;
 
-    border-bottom: 1px solid white;
-    background-color: rgb(13, 27, 53);
+    background: rgba(5, 25, 40, 0.9);
+    border-bottom: 1px solid rgba(56,189,248,0.3);
+    box-shadow: 0 2px 15px rgba(56,189,248,0.2);
 }
 
 #profile-container {
@@ -100,23 +101,29 @@ header {
 
 #login-button {
     display: none;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
 
     color: #ccc;
-    font-weight: bold;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.4);
 
-    border: 1px solid white;
-    padding: 8px 15px; 
-    border-radius: 5px;
-    text-decoration: none; 
-   
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
 }
 
 #login-button.show {
-    display: inline-block;
+    display: inline-flex;
 }
 
 #login-button:hover {
-    background-color: white; 
+    background-color: #ccc; 
     color: black;
 } 
 
@@ -151,6 +158,7 @@ nav ul.show {
 
 nav a {
     color: #ccc;
+    font-weight: 500;
     margin: 0 15px;
 
     text-decoration: none;
@@ -158,6 +166,7 @@ nav a {
 
 nav a:hover {
     color: rgb(84, 207, 255);
+    text-decoration: underline;
 }
 
 #name-display {
@@ -209,6 +218,7 @@ nav a:hover {
 }
 
 #hero {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -243,7 +253,8 @@ nav a:hover {
 
 #hero h1 {
     font-size: 2.3rem;
-    font-weight: lighter;
+    font-weight: 600;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
     color: rgb(84, 207, 255);
 }
 
@@ -264,8 +275,7 @@ nav a:hover {
 }
 
 .author a{
-    color: #ccc;
-
+    color: #46c2f7;
 }
 
 .cta {
@@ -285,26 +295,27 @@ nav a:hover {
 }
 
 .btn.primary {
-    background: yellow;
+    background: #38bdf8;
     color: black;
 }
 
 .btn.primary:hover {
-    background: rgb(235, 201, 50);
+    background: #0ea5e9;
 }
 
 .btn.secondary {
+    border: 1px solid #38bdf8;
+    color: #ccc;
+}
+
+.btn.secondary:hover {
+    border: 1px solid white;
     background-color: white;
     color: black;
 }
 
-.btn.secondary:hover {
-    background-color: #ccc;
-}
-
 .hero-image img {
     width: 10rem;
-    border-radius: 50%;
 }
 
 #search-container {
@@ -325,6 +336,16 @@ nav a:hover {
     border-radius: 10px;
     background-color: white;
     outline: none;
+}
+
+#search-icon {
+    position: absolute;
+    right: 12px;
+    top: 60%;
+    transform: translateY(-50%);
+    color: #1e293b;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 #search-bar:focus {
@@ -377,8 +398,8 @@ nav a:hover {
 
     text-align: center;
 
-    border-top: 1px solid white;
-    background: linear-gradient(to right, rgb(15, 25, 80), rgb(8, 15, 27));
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: radial-gradient(circle at top, #1e293b, #0b1220 70%);   
 }
 
 #videos h2 {
@@ -390,6 +411,7 @@ nav a:hover {
     margin: 10px;
     
     font-size: 0.775rem; 
+    font-weight: 600;
     color: #aaa;
 }
 
@@ -401,20 +423,28 @@ nav a:hover {
 }
 
 .video-bar {
-    padding: 10px;
-
-    color: black;
-
-    background-color: rgb(84, 207, 255);
+    padding: 12px 15px;
+    color: white;
+    
+    background: rgba(56, 189, 248, 0.15);
     border-radius: 20px;
+    border: 1px solid rgba(56,189,248,0.3);
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
 }
 
 .video-bar:hover {
-    background-color: rgb(65, 184, 231);
+    background: rgba(56, 189, 248, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56,189,248,0.2);
 }
 
 .video-bar.active {
-    background-color: white;
+    background: rgba(56, 189, 248, 0.85);
+    color: #0b1220; 
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(56,189,248,0.35);
 }
 
 .video-bar h3 {
@@ -435,8 +465,16 @@ nav a:hover {
 
     text-align: center;
 
-    border: 1px solid #aaa;
-    border-radius: 8px;
+    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.85); 
+    border: 1px solid rgba(84, 207, 255, 0.25);
+    backdrop-filter: blur(5px); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
 }
 
 .video-card iframe {
@@ -449,7 +487,8 @@ nav a:hover {
 .video-card h3 {
     margin: 10px 0 5px;
 
-    color: rgb(84, 207, 255);
+    color: #38bdf8;
+    font-weight: 600;
 }
 
 .video-card p {
@@ -474,12 +513,12 @@ nav a:hover {
     font-weight: bold;
     text-decoration: none;
 
-    background-color: yellow;
+    background-color: #38bdf8;
     border-radius: 5px; 
 }
 
 .video-button:hover {
-    background-color: rgb(235, 201, 50);
+    background: rgba(56, 189, 248, 0.7);
 }
 
 .cheatsheet {
@@ -500,7 +539,7 @@ nav a:hover {
 }
 
 .cheatsheet:hover {
-    background-color: rgb(235, 201, 50);
+    background-color: rgb(206, 206, 24);
 }
 
 .video-meta {
@@ -515,6 +554,7 @@ nav a:hover {
 
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid rgba(84, 207, 255, 0.5);
 }
 
 .teacher {
@@ -532,8 +572,8 @@ footer {
     font-size: 0.9em;
     text-align: center;
     
-    border-top: 1px solid white;
-    background-color: rgb(13, 27, 53);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    background: linear-gradient(to top, #0b1220, #1e293b);
 }
 
 #platforms {

@@ -7,11 +7,12 @@ hamburgerBar.addEventListener("click", () => {
     if (navBar.classList.contains("show")) {
         hamburgerBar.style.color = "white";
         navBar.classList.remove("show");
-        header.style.backgroundColor = "rgb(13, 27, 53)";
+        header.style.backgroundColor = "rgba(5, 25, 40, 0.9)";
     } else {
         hamburgerBar.style.color = "rgb(84, 207, 255)"
         navBar.classList.add("show");
-        header.style.backgroundColor = "rgb(8, 15, 27)";
+        header.style.backgroundColor = "rgba(5, 25, 40, 0.9)";
+
     }
 });
 
